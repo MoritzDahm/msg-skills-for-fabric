@@ -13,7 +13,7 @@ description: >-
   "create a dashboard from our semantic model", "publish this to Fabric",
   "msg Power BI dashboard".
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # Power BI Solution Architect
@@ -91,6 +91,11 @@ Time Intelligence
 - Previous Month
 - Previous Year
 - Rolling 12 Months
+
+**Prerequisite — check before proposing or authoring any of the above.** Time-intelligence functions (`DATEADD`, `SAMEPERIODLASTYEAR`, `TOTALYTD`, etc.) require a table marked as the model's Date table, with a contiguous, unique-per-row date column. Verify this exists before writing any time-intelligence DAX. If it does not exist:
+
+1. Do not silently hand-roll a `FILTER`-based workaround against a transaction-grain date column — this produces a measure that looks correct but is an unreviewed approximation.
+2. Recommend creating and marking a proper calendar table first (via `semantic-model-authoring`), explain why, and get approval before proceeding — same approval gate as any other new measure.
 
 Performance
 
