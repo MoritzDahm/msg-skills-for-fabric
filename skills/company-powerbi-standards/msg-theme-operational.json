@@ -1,0 +1,34 @@
+{
+  "name": "MSG Operational Dashboard",
+  "foreground": "#202020",
+  "background": "#FFFFFF",
+  "tableAccent": "#56A3BC",
+
+  "dataColors": [
+    "#56A3BC",
+    "#A01441",
+    "#6F6F6F",
+    "#89C6D8",
+    "#C0466C",
+    "#B5B5B5"
+  ],
+
+  "good": "#56A3BC",
+  "neutral": "#6F6F6F",
+  "bad": "#A01441",
+
+  "textClasses": {
+    "title": {
+      "fontFace": "Aptos",
+      "fontSize": 18
+    },
+    "header": {
+      "fontFace": "Aptos",
+      "fontSize": 12
+    },
+    "callout": {
+      "fontFace": "Aptos",
+      "fontSize": 10
+    }
+  }
+}

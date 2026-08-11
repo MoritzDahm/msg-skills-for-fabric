@@ -31,6 +31,7 @@ This skill provides design guidance for Power BI reports. It commits a design id
 ### MUST
 
 - Inspect the semantic model or available fields before making design decisions.
+- Resolve theme and layout constraints via `company-powerbi-standards` before Step 5 (Theme); it takes priority over generic design defaults.
 - Produce concrete design choices: tone, signature, page archetype, chart rationale, layout direction, color, typography, and accessibility considerations.
 - Hand off file mechanics to `powerbi-report-authoring`; this skill does not edit PBIR.
 
@@ -117,17 +118,9 @@ Read `references/visual-cookbook.md` for per-visual-type rules: sort order, colo
 
 ### Step 5 — Theme
 
-Adapt the report theme to the design identity from Step 1. For generated reports,
-start from `assets/base.json` or preserve its critical per-type safeguards when
-creating an adapted custom theme: `textbox` padding/background/border overrides,
-`cardVisual` zero padding/card spacing, table grow-to-fit styling, hidden visual
-headers, and type-specific chart defaults. Do not replace these with a blunt
-wildcard `visualStyles["*"]["*"].padding` / background unless every affected
-visual type is checked and overridden. If the report already has a theme,
-preserve it unless the user asked for a theme swap or brand refresh. For full
-mechanics of theme registration — including how to choose the `$schema`
-version when adapting `assets/base.json` — use the `powerbi-report-authoring`
-skill.
+Before adapting `assets/base.json`, check `company-powerbi-standards` for the mandated theme file (`msg-theme-executive.json` for Executive/Management/Steering/Board archetypes, `msg-theme-operational.json` for Operational/Monitor archetypes).
+
+The msg theme files supply `name`, `foreground`, `background`, `tableAccent`, `dataColors`, `good`/`neutral`/`bad`, and `textClasses` only — they carry no `$schema` or `visualStyles` block. Do **not** use them as a drop-in replacement for `assets/base.json`. Instead: start from `assets/base.json`, then overlay the msg file's color/typography fields (`dataColors`, `good`/`neutral`/`bad`, `foreground`, `background`, `textClasses`) on top, keeping `assets/base.json`'s `$schema` and full `visualStyles` block (textbox padding/background/border, `cardVisual` zero padding, table grow-to-fit, hidden headers) intact. Treat any msg-file `visualStyles` entry added later as additive, not a replacement for these safeguards.
 
 ### Step 6 — Canonical Design Contract
 
