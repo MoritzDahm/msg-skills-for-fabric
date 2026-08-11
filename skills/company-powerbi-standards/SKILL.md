@@ -76,6 +76,29 @@ for:
 - Support Reports
 - Detailed Monitoring Reports
 
+### Mixed-Audience Reports (Single-Theme-Per-Report Constraint)
+
+PBIR/Power BI registers exactly one custom theme per report
+(`report.json → themeCollection.customTheme`). There is no mechanism to
+register a different theme file per page — every page in a report draws
+`dataColors`, `textClasses`, and `good`/`neutral`/`bad` from the same
+registered theme. Do not assume both `msg-theme-executive.json` and
+`msg-theme-operational.json` can be applied to one report.
+
+When a report mixes an executive/management landing page with
+operational/analytical pages:
+
+- Default to `msg-theme-executive.json` for the whole report. The landing
+  page sets the report's first impression, and this is the common case for
+  msg dashboards.
+- Use `msg-theme-operational.json` for the whole report only when the
+  report has no executive/management landing page at all — i.e. it is
+  entirely operational/monitoring in nature.
+- Optional, non-binding refinement: per-visual `objects` font-size overrides
+  (title/callout sizes) can approximate a denser "operational" feel on
+  specific pages without registering a second theme. This is a per-visual
+  tweak, not a theme swap, and is not required for compliance.
+
 ## Layout Rules
 
 Keep layouts simple and uncluttered.
@@ -127,8 +150,14 @@ Always generate:
 
 - report.json
 - pages
-- bookmarks
 - theme reference
+
+Generate bookmarks only when the report has a genuine bookmark-worthy state
+(e.g. a default filtered view, a reset-to-default control, a guided
+walkthrough of a narrative report). Do not add empty or placeholder
+bookmarks solely to satisfy this rule when there is nothing meaningful to
+capture — an unconditional "always generate bookmarks" produces stub
+bookmarks with no purpose.
 
 Use corporate theme automatically.
 
