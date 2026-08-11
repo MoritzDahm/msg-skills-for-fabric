@@ -122,8 +122,6 @@ Check `company-powerbi-standards` for the mandated theme file (`msg-theme-execut
 
 These files are complete, standalone theme JSON — each already carries `$schema` and the full `visualStyles` safeguards (textbox padding/background/border, `cardVisual` zero padding, table grow-to-fit, hidden headers), on top of accessibility-checked colors and correct callout sizing. Use the mandated file directly; do **not** re-derive it from `assets/base.json` or overlay fields manually — that merge step previously caused a real bug (an overlay silently shrank the callout font from 28pt to 12pt). Only fall back to manually merging with `assets/base.json` if `company-powerbi-standards` is unavailable in this session.
 
-A report can only register one theme file report-wide — see `company-powerbi-standards` § Mixed-Audience Reports before picking between `msg-theme-executive.json` and `msg-theme-operational.json` for a report that spans both audiences.
-
 ### Step 6 — Canonical Design Contract
 
 Emit a structured `Design Brief:` YAML block. This is the contract with
