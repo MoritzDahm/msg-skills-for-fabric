@@ -118,9 +118,9 @@ Read `references/visual-cookbook.md` for per-visual-type rules: sort order, colo
 
 ### Step 5 — Theme
 
-Check `company-powerbi-standards` for the mandated theme file (`msg-theme-executive.json` for Executive/Management/Steering/Board archetypes, `msg-theme-operational.json` for Operational/Monitor archetypes).
+If a `company-powerbi-standards` skill is installed, ask it which theme file governs this page's archetype (its own theme-selection mapping decides the file name and the Executive/Operational split — do not assume specific file names here).
 
-These files are complete, standalone theme JSON — each already carries `$schema` and the full `visualStyles` safeguards (textbox padding/background/border, `cardVisual` zero padding, table grow-to-fit, hidden headers), on top of accessibility-checked colors and correct callout sizing. Use the mandated file directly; do **not** re-derive it from `assets/base.json` or overlay fields manually — that merge step previously caused a real bug (an overlay silently shrank the callout font from 28pt to 12pt). Only fall back to manually merging with `assets/base.json` if `company-powerbi-standards` is unavailable in this session.
+The mandated file is complete, standalone theme JSON — it already carries `$schema` and the full `visualStyles` safeguards (textbox padding/background/border, `cardVisual` zero padding, table grow-to-fit, hidden headers), on top of accessibility-checked colors and correct callout sizing. Use the mandated file directly; do **not** re-derive it from `assets/base.json` or overlay fields manually — that merge step previously caused a real bug (an overlay silently shrank the callout font from 28pt to 12pt). Only fall back to manually merging with `assets/base.json` if no `company-powerbi-standards` skill is installed in this session.
 
 ### Step 6 — Canonical Design Contract
 

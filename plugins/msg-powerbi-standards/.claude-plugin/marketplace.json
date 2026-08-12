@@ -1,0 +1,36 @@
+{
+  "name": "msg-collection",
+  "metadata": {
+    "description": "msg's plugin marketplace for Microsoft Fabric / Power BI — currently msg's corporate Power BI design-standards plugin.",
+    "version": "0.1.0"
+  },
+  "owner": {
+    "name": "msg",
+    "email": "REPLACE_WITH_MSG_CONTACT_EMAIL"
+  },
+  "plugins": [
+    {
+      "name": "msg-powerbi-standards",
+      "source": "./",
+      "description": "Built by msg: a customizable Power BI corporate-standards skill (colors, fonts, theme, layout policy) for Microsoft's skills-for-fabric Power BI skills. Ships with a blank template plus an msg-branded drop-in example.",
+      "version": "0.1.0",
+      "skills": [
+        "./skills/company-powerbi-standards"
+      ],
+      "agents": [],
+      "mcpServers": {},
+      "repository": "REPLACE_WITH_MSG_REPO_URL",
+      "keywords": [
+        "msg",
+        "powerbi",
+        "design-system",
+        "brand",
+        "theme",
+        "corporate-standards",
+        "skills-for-fabric",
+        "template"
+      ],
+      "license": "MIT"
+    }
+  ]
+}

@@ -1,48 +1,30 @@
 ---
 name: company-powerbi-standards
 description: >-
-  Apply msg corporate design standards to every Power BI report: brand colors,
-  fonts, theme selection (executive vs operational), layout density rules, KPI
-  color coding, and PBIP delivery requirements. Load this skill before any
-  theme, color, layout, or brand decision is finalized for a Power BI report —
-  it always takes priority over generic design defaults. Consumed by
-  `powerbi-report-design` (Step 5 — Theme) and `powerbi-dashboard-architect`
+  Apply msg's corporate design standards to every Power BI report: brand
+  colors, fonts, theme selection (executive vs operational), layout density
+  rules, KPI color coding, and delivery format requirements. Load this skill
+  before any theme, color, layout, or brand decision is finalized for a Power
+  BI report — it always takes priority over generic design defaults. Consumed
+  by `powerbi-report-design` (Step 5 — Theme) and `powerbi-dashboard-architect`
   (Corporate Design gate). Triggers: "apply MSG standards", "corporate theme",
   "brand colors", "which theme to use", "MSG design guidelines".
 metadata:
-  version: 0.3.0
+  version: 0.1.0
 ---
 
 # msg Power BI Standards
 
+> **This is msg's own worked example**, shipped as a drop-in reference inside
+> the `msg-powerbi-standards` plugin. To use msg's design system as-is, copy
+> this file and `tokens.json`/`themes/` over the blank template at
+> `../../skills/company-powerbi-standards/`. To build your own, read this file
+> as a concrete example of how every section maps back to `tokens.json`, then
+> replace the values with your own brand.
+
 ## Purpose
 
 Apply msg corporate design standards and dashboard best practices to every report.
-
-## Customize This Skill
-
-This skill is a **reference implementation** of the `company-powerbi-standards`
-contract (see `references/contract.md`) for msg specifically. All literal
-brand values — colors, fonts, callout sizes, layout limits, naming prefix —
-live in `tokens.json`, not in this file. If you are adapting this skill for a
-different organization:
-
-1. Edit `tokens.json` only; this file (`SKILL.md`) should not need literal
-   value changes.
-2. Regenerate `msg-theme-executive.json` / `msg-theme-operational.json` (or
-   your renamed equivalents) to match — see the field mapping table in
-   `references/contract.md`. The `msg-powerbi-standards` plugin
-   (`plugins/msg-powerbi-standards/`) packages this as a distributable
-   template — a blank `skills/company-powerbi-standards/` plus this exact
-   content as a drop-in example under `examples/msg/` — if you're setting
-   this up for a new organization from scratch.
-3. Keep the skill named `company-powerbi-standards` unless you also update the
-   three consumer skills (`powerbi-report-design`, `powerbi-report-planning`,
-   `powerbi-dashboard-architect`) that look it up by that exact name.
-4. Do not re-add generic design theory here (contrast math, palette-size
-   theory, typography scale rationale) — that belongs in
-   `powerbi-report-design`'s reference files and would just drift out of sync
-   with a second copy.
 
 ## Consumed By
 
@@ -51,10 +33,9 @@ different organization:
 
 ## Corporate Colors
 
-See `tokens.json` → `colors` for exact hex values, names, and measured contrast
-ratios. Usage constraints that aren't obvious from the data alone:
+See `tokens.json` → `colors` for exact hex values, names, and measured contrast ratios. Usage constraints that aren't obvious from the data alone:
 
-**Do not substitute `secondaryDecorative` for `secondaryAccessible` to "match the brand book."** The brand book's lighter petrol (`secondaryDecorative`) is a real color the company uses, but only in contexts (large fills, backgrounds) where WCAG's stricter thresholds don't apply — it fails AA for both text and graphics. Every shipped theme file already uses `secondaryAccessible` for `good` and for any data series a user reads as text/labels — do not override this when adapting or authoring a theme.
+**Do not substitute `secondaryDecorative` for `secondaryAccessible` to "match the brand book."** The brand book's lighter petrol (`secondaryDecorative`) is a real color msg uses, but only in contexts (large fills, backgrounds) where WCAG's stricter thresholds don't apply — it fails AA for both text and graphics. Both shipped theme files already use `secondaryAccessible` for `good` and for any data series a user reads as text/labels — do not override this when adapting or authoring a theme.
 
 ## Fonts
 
@@ -62,10 +43,7 @@ See `tokens.json` → `fonts`. Never use decorative fonts.
 
 ## Theme Selection
 
-Theme files live in this skill's own folder: `skills/company-powerbi-standards/`.
-Resolve the path relative to the consuming skill — for `powerbi-report-design`
-and `powerbi-report-authoring` (both under `skills/<name>/`), that is
-`../company-powerbi-standards/<file>.json`.
+Theme files live in this skill's own `themes/` folder. Resolve the path relative to the consuming skill.
 
 See `tokens.json` → `themeSelection` for the file-to-archetype mapping.
 
@@ -85,7 +63,7 @@ Use current visual types only: `cardVisual` (not `card`/`multiRowCard`), `azureM
 
 ## Field Naming Rules
 
-Every axis label, column header, legend entry, and card label must show a human-readable display name — never a raw database identifier (`customer_segment`, `Sum of fight_key`, `date_of_enrolment`). Set an explicit `displayName` on every bound field and every aggregation. This applies to pages, slicers, and table/column captions as well as measures — see `powerbi-dashboard-architect`'s Measure Naming section for the measure-specific prefix convention (`tokens.json` → `naming.measurePrefix`).
+Every axis label, column header, legend entry, and card label must show a human-readable display name — never a raw database identifier (`customer_segment`, `Sum of fight_key`, `date_of_enrolment`). Set an explicit `displayName` on every bound field and every aggregation. This applies to pages, slicers, and table/column captions as well as measures — see `tokens.json` → `naming.measurePrefix` for the measure-specific prefix convention.
 
 ## Interaction and Tooltip Defaults
 
@@ -106,6 +84,6 @@ Both shipped theme files set `good` and `bad` to colors of equivalent contrast s
 
 (General palette-size theory — why 6-8 is the practical cap — lives in `powerbi-report-design/references/color.md`; this section only states msg's specific count and options.)
 
-## PBIP Rules
+## Delivery Rules
 
-See `tokens.json` → `delivery`. Use corporate theme automatically. Every report must comply with msg standards.
+See `tokens.json` → `delivery`. Apply the corporate theme automatically. Every report must comply with msg standards.
