@@ -1,43 +1,31 @@
 ---
 name: company-powerbi-standards
 description: >-
-  Apply REPLACE_WITH_YOUR_ORG_NAME's corporate design standards to every Power
-  BI report: brand colors, fonts, theme selection (executive vs operational),
-  layout density rules, KPI color coding, and delivery format requirements.
-  Load this skill before any theme, color, layout, or brand decision is
-  finalized for a Power BI report — it always takes priority over generic
-  design defaults. Consumed by `powerbi-report-design` (Step 5 — Theme) and
-  `powerbi-dashboard-architect` (Corporate Design gate). Triggers: "apply
-  company standards", "corporate theme", "brand colors", "which theme to use",
-  "REPLACE_WITH_YOUR_ORG_NAME design guidelines".
+  Apply msg's corporate design standards to every Power BI report: brand
+  colors, fonts, theme selection (executive vs operational), layout density
+  rules, KPI color coding, and delivery format requirements. Load this skill
+  before any theme, color, layout, or brand decision is finalized for a Power
+  BI report — it always takes priority over generic design defaults. Consumed
+  by `powerbi-report-design` (Step 5 — Theme) and `powerbi-dashboard-architect`
+  (Corporate Design gate). Triggers: "apply MSG standards", "corporate theme",
+  "brand colors", "which theme to use", "MSG design guidelines".
 metadata:
   version: 0.1.0
 ---
 
-# REPLACE_WITH_YOUR_ORG_NAME Power BI Standards
+# msg Power BI Standards
 
-> **This is a template.** Every `REPLACE_WITH_YOUR_ORG_NAME` placeholder above
-> and below should be replaced with your organization's real name, and every
-> value referenced from `tokens.json` should be replaced with your real brand
-> standards before this skill is used on a real report. See `../../README.md`
-> for the full setup checklist.
+> **This is msg's real design system** — the default brand shipped with this
+> plugin. Every downstream skill in this bundle (`powerbi-report-design`,
+> `powerbi-dashboard-architect`, etc.) applies it automatically. If you want
+> your **own** brand instead of msg's, copy `../../template/company-powerbi-standards/`
+> over this folder and fill in your own `tokens.json` — see that folder's
+> `references/contract.md` for exactly what to fill in, and
+> `references/contrast-checklist.md` for validating your own colors.
 
 ## Purpose
 
-Apply this organization's corporate design standards and dashboard best
-practices to every report.
-
-## Customize This Skill
-
-All literal brand values — colors, fonts, callout sizes, layout limits,
-naming prefix — live in `tokens.json`, not in this file. See
-`references/contract.md` for exactly what the three consumer skills expect
-from this skill, and `references/contrast-checklist.md` for how to validate
-new brand colors before adding them to `tokens.json`.
-
-Do not add generic design theory here (contrast math, palette-size theory,
-typography scale rationale) — that belongs in `powerbi-report-design`'s
-reference files and would just drift out of sync with a second copy.
+Apply msg corporate design standards and dashboard best practices to every report.
 
 ## Consumed By
 
@@ -46,10 +34,9 @@ reference files and would just drift out of sync with a second copy.
 
 ## Corporate Colors
 
-See `tokens.json` → `colors` for exact hex values, names, and measured
-contrast ratios. Usage constraints that aren't obvious from the data alone:
+See `tokens.json` → `colors` for exact hex values, names, and measured contrast ratios. Usage constraints that aren't obvious from the data alone:
 
-**Do not substitute `secondaryDecorative` for `secondaryAccessible` to "match the brand book."** A brand's lighter accent color is often a real color the company uses, but only in contexts (large fills, backgrounds) where WCAG's stricter thresholds don't apply — check `wcagAA_text` / `wcagAA_graphics` on each color in `tokens.json` before using it anywhere text- or data-adjacent. Every shipped theme file already uses `secondaryAccessible` for `good` and for any data series a user reads as text/labels — do not override this when adapting or authoring a theme.
+**Do not substitute `secondaryDecorative` for `secondaryAccessible` to "match the brand book."** The brand book's lighter petrol (`secondaryDecorative`) is a real color msg uses, but only in contexts (large fills, backgrounds) where WCAG's stricter thresholds don't apply — it fails AA for both text and graphics. Both shipped theme files already use `secondaryAccessible` for `good` and for any data series a user reads as text/labels — do not override this when adapting or authoring a theme.
 
 ## Fonts
 
@@ -57,12 +44,9 @@ See `tokens.json` → `fonts`. Never use decorative fonts.
 
 ## Theme Selection
 
-Theme files live in this skill's own `themes/` folder. Resolve the path
-relative to the consuming skill.
+Theme files live in this skill's own `themes/` folder. Resolve the path relative to the consuming skill.
 
-See `tokens.json` → `themeSelection` for the file-to-archetype mapping —
-add as many entries as your organization actually needs; two (executive /
-operational) is a starting point, not a limit.
+See `tokens.json` → `themeSelection` for the file-to-archetype mapping.
 
 ## Layout Rules
 
@@ -72,7 +56,7 @@ See `tokens.json` → `layout` for the max-visuals limit and preferred/avoided s
 
 ## Typography Sizing
 
-Callout (KPI card headline value) sizing is brand-critical — undersized KPI numbers are the most common way a report looks unpolished. See `tokens.json` → `themeSelection.<key>.calloutPt` (already set in the matching theme JSON). Do not shrink these when adapting a theme. If a custom override is required for a specific visual, it must not go below these values.
+Callout (KPI card headline value) sizing is brand-critical — undersized KPI numbers are the most common way an msg report looks unpolished. See `tokens.json` → `themeSelection.<executive|operational>.calloutPt` (already set in the matching theme JSON). Do not shrink these when adapting a theme. If a custom override is required for a specific visual, it must not go below these values.
 
 ## Visual Type Rules
 
@@ -80,17 +64,17 @@ Use current visual types only: `cardVisual` (not `card`/`multiRowCard`), `azureM
 
 ## Field Naming Rules
 
-Every axis label, column header, legend entry, and card label must show a human-readable display name — never a raw database identifier (`customer_segment`, `Sum of fight_key`, `date_of_enrolment`). Set an explicit `displayName` on every bound field and every aggregation. This applies to pages, slicers, and table/column captions as well as measures — the measure-specific prefix convention is `tokens.json` → `naming.measurePrefix`.
+Every axis label, column header, legend entry, and card label must show a human-readable display name — never a raw database identifier (`customer_segment`, `Sum of fight_key`, `date_of_enrolment`). Set an explicit `displayName` on every bound field and every aggregation. This applies to pages, slicers, and table/column captions as well as measures — see `tokens.json` → `naming.measurePrefix` for the measure-specific prefix convention.
 
 ## Interaction and Tooltip Defaults
 
-See `tokens.json` → `interaction`. Use `powerbi-report-authoring`'s `references/interactivity.md` for drillthrough/bookmark/tooltip mechanics; this skill only sets this organization's default, not the implementation.
+See `tokens.json` → `interaction`. Use `powerbi-report-authoring`'s `references/interactivity.md` for drillthrough/bookmark/tooltip mechanics; this skill only sets the msg-specific default, not the implementation.
 
 ## KPI Rules
 
 Color assignment: see `tokens.json` → `semantics` (which color token maps to `good`/`bad`/`neutral`). Use color sparingly. Color must never be the only indicator.
 
-Both shipped theme files set `good` and `bad` to colors of equivalent contrast strength so positive/on-target indicators render at the same visual weight as negative ones — do not let that asymmetry creep in when adapting a theme; it makes bad news look more visually prominent than good news by accident. (See `references/contrast-checklist.md` § "`good` vs `bad` parity".)
+Both shipped theme files set `good` and `bad` to colors of equivalent contrast strength so positive/on-target indicators render at the same visual weight as negative ones — do not let that asymmetry creep in when adapting a theme; it makes bad news look more visually prominent than good news by accident.
 
 ### Palette Overflow Policy
 
@@ -99,8 +83,8 @@ Both shipped theme files set `good` and `bad` to colors of equivalent contrast s
 - Use one of `tokens.json` → `paletteOverflowPolicy.options` (collapse to "Other", sequential ramp, or gray past the top-N by rank).
 - Never let an overflow category silently take Power BI's auto-generated color. State explicitly in the design brief which overflow strategy was used, if any.
 
-(General palette-size theory — why 6-8 is the practical cap — lives in `powerbi-report-design/references/color.md`; this section only states this organization's specific count and options.)
+(General palette-size theory — why 6-8 is the practical cap — lives in `powerbi-report-design/references/color.md`; this section only states msg's specific count and options.)
 
 ## Delivery Rules
 
-See `tokens.json` → `delivery`. Apply the corporate theme automatically. Every report must comply with this organization's standards.
+See `tokens.json` → `delivery`. Apply the corporate theme automatically. Every report must comply with msg standards.

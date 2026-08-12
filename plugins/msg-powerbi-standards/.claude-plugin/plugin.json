@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "msg-powerbi-standards",
-  "description": "Built by msg: a customizable Power BI corporate-standards skill (colors, fonts, theme, layout policy) for Microsoft's skills-for-fabric Power BI skills. Ships with a blank template plus an msg-branded drop-in example.",
-  "version": "0.1.0",
+  "description": "Built by msg: a complete, self-sufficient Power BI toolkit for Microsoft's skills-for-fabric — semantic model authoring, report planning/design/authoring/management, Fabric publishing, msg's governance rules, and msg's corporate design standards (colors, fonts, theme, layout policy), with a blank template for organizations that want their own brand instead of msg's.",
+  "version": "0.2.0",
   "license": "MIT",
   "author": {
     "name": "msg",
@@ -12,16 +12,36 @@
   "keywords": [
     "msg",
     "powerbi",
+    "fabric",
     "design-system",
     "brand",
     "theme",
     "corporate-standards",
-    "skills-for-fabric",
-    "template"
+    "semantic-model",
+    "pbip",
+    "pbir",
+    "skills-for-fabric"
   ],
   "skills": [
+    "./skills/check-updates",
+    "./skills/semantic-model-authoring",
+    "./skills/powerbi-report-planning",
+    "./skills/powerbi-report-design",
+    "./skills/powerbi-report-authoring",
+    "./skills/powerbi-report-management",
+    "./skills/powerbi-dashboard-architect",
     "./skills/company-powerbi-standards"
   ],
   "agents": [],
-  "mcpServers": {}
+  "mcpServers": {
+    "powerbi-modeling-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/powerbi-modeling-mcp@latest",
+        "--start"
+      ]
+    }
+  }
 }
