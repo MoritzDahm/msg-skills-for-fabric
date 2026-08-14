@@ -30,9 +30,6 @@ skills/                          # Root-level skills — auto-loaded when this r
   powerbi-report-design/         # Visual design guidance (tone, archetype, layout, color)
   powerbi-report-authoring/      # PBIR/PBIP file mechanics
   powerbi-report-management/     # Fabric report item CRUD (publish, update)
-  powerbi-dashboard-architect/   # msg's governance layer over the four skills above
-  company-powerbi-standards/     # msg's brand: colors, fonts, theme, layout policy
-                                  # (this is msg's real, in-use implementation)
 
 plugins/                         # Marketplace-installable bundles
   fabric-skills/                 # Full upstream bundle: every Fabric workload
@@ -68,10 +65,6 @@ and ask for a Power BI task:
 ```text
 Build me an executive dashboard from this semantic model, using our corporate design standards.
 ```
-
-`powerbi-dashboard-architect` and `powerbi-report-design` will automatically
-find and apply `company-powerbi-standards` before finalizing any theme, color,
-or layout decision.
 
 ## Installing via plugin marketplace (GitHub Copilot CLI)
 

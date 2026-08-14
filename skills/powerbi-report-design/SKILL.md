@@ -118,9 +118,17 @@ Read `references/visual-cookbook.md` for per-visual-type rules: sort order, colo
 
 ### Step 5 — Theme
 
-If a `company-powerbi-standards` skill is installed, ask it which theme file governs this page's archetype (its own theme-selection mapping decides the file name and the Executive/Operational split — do not assume specific file names here).
-
-The mandated file is complete, standalone theme JSON — it already carries `$schema` and the full `visualStyles` safeguards (textbox padding/background/border, `cardVisual` zero padding, table grow-to-fit, hidden headers), on top of accessibility-checked colors and correct callout sizing. Use the mandated file directly; do **not** re-derive it from `assets/base.json` or overlay fields manually — that merge step previously caused a real bug (an overlay silently shrank the callout font from 28pt to 12pt). Only fall back to manually merging with `assets/base.json` if no `company-powerbi-standards` skill is installed in this session.
+Adapt the report theme to the design identity from Step 1. For generated reports,
+start from `assets/base.json` or preserve its critical per-type safeguards when
+creating an adapted custom theme: `textbox` padding/background/border overrides,
+`cardVisual` zero padding/card spacing, table grow-to-fit styling, hidden visual
+headers, and type-specific chart defaults. Do not replace these with a blunt
+wildcard `visualStyles["*"]["*"].padding` / background unless every affected
+visual type is checked and overridden. If the report already has a theme,
+preserve it unless the user asked for a theme swap or brand refresh. For full
+mechanics of theme registration — including how to choose the `$schema`
+version when adapting `assets/base.json` — use the `powerbi-report-authoring`
+skill.
 
 ### Step 6 — Canonical Design Contract
 

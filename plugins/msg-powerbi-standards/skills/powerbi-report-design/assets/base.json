@@ -1,19 +1,19 @@
 {
   "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.153.json",
   "name": "Skill Base Defaults",
-  "dataColors": ["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#000000"],
-  "good": "#1AAB40",
-  "neutral": "#D9B300",
-  "bad": "#D64554",
-  "maximum": "#118DFF",
-  "center": "#D9B300",
-  "minimum": "#DEEFFF",
-  "null": "#FF7F48",
+  "dataColors": ["#A01441", "#3D7A8F", "#6F6F6F", "#C0466C", "#7DBACE", "#9A9A9A", "#4A4A4A", "#D4D4D4"],
+  "good": "#3D7A8F",
+  "neutral": "#6F6F6F",
+  "bad": "#A01441",
+  "maximum": "#A01441",
+  "center": "#6F6F6F",
+  "minimum": "#DCEEF2",
+  "null": "#9A9A9A",
   "textClasses": {
-    "callout": { "fontSize": 28, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#252423" },
-    "title": { "fontSize": 14, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#252423" },
-    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#252423" },
-    "label": { "fontSize": 10, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#252423" }
+    "callout": { "fontSize": 28, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#202020" },
+    "title": { "fontSize": 14, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#202020" },
+    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#202020" },
+    "label": { "fontSize": 10, "fontFace": "Segoe UI Variable, Segoe UI, sans-serif", "color": "#202020" }
   },
   "visualStyles": {
     "*": {

@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft-07/schema",
   "name": "powerbi-authoring",
-  "description": "eveloped by msg: Adding powerbi knowledge to your AI agent",
+  "description": "Developed by msg: Adding powerbi knowledge to your AI agent",
   "version": "0.3.11",
   "license": "MIT",
-  "repository": "https://github.com/microsoft/skills-for-fabric",
+  "repository": "ADD-REPOSITORY",
   "keywords": [
     "fabric",
     "microsoft-fabric",
