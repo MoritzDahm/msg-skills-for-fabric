@@ -106,8 +106,6 @@ Before implementation, capture this status:
 | `powerbi-report-authoring` skill | Validate PBIR, reload Desktop, screenshot pages | Required for report authoring validation |
 | `powerbi-report-management` skill | Create/update/download Fabric reports | Required only for Fabric publishing |
 | Node.js | Generator-based PBIR authoring | Recommended for reproducible reports |
-| `company-powerbi-standards` skill | Corporate theme/color/layout rules | Required for msg-branded reports; takes priority over generic design defaults |
-| `powerbi-dashboard-architect` skill | Measure-naming and governance constraints | Required whenever invoked under msg governance scope |
 
 If a dependency is unavailable, continue planning and mark the affected phase as
 blocked/manual. Do not pretend it is available.

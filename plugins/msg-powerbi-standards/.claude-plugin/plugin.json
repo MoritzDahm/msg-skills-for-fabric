@@ -1,26 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "msg-powerbi-standards",
-  "description": "Built by msg: a complete, self-sufficient Power BI toolkit for Microsoft's skills-for-fabric — semantic model authoring, report planning/design/authoring/management, Fabric publishing, msg's governance rules, and msg's corporate design standards (colors, fonts, theme, layout policy), with a blank template for organizations that want their own brand instead of msg's.",
-  "version": "0.2.0",
+  "name": "powerbi-authoring",
+  "description": "Developed by msg: Adding powerbi knowledge to your AI agent",
+  "version": "0.3.11",
   "license": "MIT",
-  "author": {
-    "name": "msg",
-    "url": "REPLACE_WITH_MSG_URL"
-  },
-  "repository": "REPLACE_WITH_MSG_REPO_URL",
+  "repository": "https://github.com/microsoft/skills-for-fabric",
   "keywords": [
-    "msg",
-    "powerbi",
     "fabric",
-    "design-system",
-    "brand",
-    "theme",
-    "corporate-standards",
+    "microsoft-fabric",
+    "authoring",
+    "powerbi",
     "semantic-model",
     "pbip",
     "pbir",
-    "skills-for-fabric"
+    "report",
+    "developer"
   ],
   "skills": [
     "./skills/check-updates",
@@ -28,9 +22,7 @@
     "./skills/powerbi-report-planning",
     "./skills/powerbi-report-design",
     "./skills/powerbi-report-authoring",
-    "./skills/powerbi-report-management",
-    "./skills/powerbi-dashboard-architect",
-    "./skills/company-powerbi-standards"
+    "./skills/powerbi-report-management"
   ],
   "agents": [],
   "mcpServers": {
