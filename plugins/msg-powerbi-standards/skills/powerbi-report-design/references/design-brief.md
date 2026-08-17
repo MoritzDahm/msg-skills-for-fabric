@@ -64,6 +64,15 @@ design-owned contract from a planner draft or prose-only wireframe.
   not allocate a callout to a duplicate absolute measure.
 - One analytical question per visual. If a visual answers two questions, split
   it.
+- **`recommended_action`** is a page-level field, required on Executive
+  Summary and Narrative Story pages (optional elsewhere): the decision or
+  next step the reader should take as a result of this page, distinct from
+  `insight_basis` (which justifies why a *callout* deserves space, not what
+  the reader should *do*). A page that only states a finding — with no
+  action and no explicit `awareness_only: true` — is a diagnosis without a
+  prescription; see `anti-patterns.md`. Give it a physical placement
+  (textbox in the existing callout/footer zone) so it's visible on load,
+  not just metadata in the brief.
 
 ## Minimal-brief escape hatch
 
@@ -114,6 +123,7 @@ Design Brief:
       archetype: <Executive | Analytical | Operational | Narrative | Comparative>
       layout_variant: <A | B | C>
       variant_rationale: <one sentence: which data signal drove this pick>
+      recommended_action: <required for Executive/Narrative pages: the decision or next step this page should drive, e.g. "Hold Q4 spend at current pace"; use "awareness_only: true" instead only when the page is genuinely status-only>
       page_background: "#F3F2F1"
       layout_summary: <short prose explanation; not authoritative for geometry>
       layout_contract:
@@ -492,3 +502,6 @@ Before handoff, fix any failure:
 - [ ] Bar/column placements specify `sort_policy`.
 - [ ] Every color-bearing measure visual has a `color_strategy` that can be
       resolved against `color_map`.
+- [ ] Executive Summary and Narrative Story pages have a page-level
+      `recommended_action` (or an explicit `awareness_only: true`) — a finding
+      without a next step is a diagnosis without a prescription.

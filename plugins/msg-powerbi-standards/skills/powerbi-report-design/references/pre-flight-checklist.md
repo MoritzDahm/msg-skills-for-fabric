@@ -102,6 +102,15 @@ For brownfield mode, also walk
       shift, threshold, benchmark gap, anomaly, or dynamic narrative text. No
       callout repeats the same absolute measure already shown in an adjacent
       chart/table.
+- [ ] **Recommended action present on management-facing pages** — Executive
+      Summary and Narrative Story pages state a `recommended_action` (or an
+      explicit `awareness_only: true`), visible on load, not just an
+      analytical finding. A page that only reports status is a diagnosis
+      without a prescription.
+- [ ] **Page titles compose into one story** — for multi-page reports, read
+      only the page titles top to bottom; they must build toward the
+      report's core story, not read as unrelated facts (see
+      `archetype-composition.md` § Vertical logic across page titles).
 - [ ] **Bar/column charts sorted** by value descending.
 - [ ] **No unintended monochrome bars** — if category contrast matters,
       specify value-gradient or per-category color intent.

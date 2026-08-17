@@ -91,6 +91,7 @@ Strong warnings surface to the user for explicit confirmation.
 | **Operational without timestamp** | Users can't assess data freshness; stale data = wrong decisions | Show "Last refreshed: {time}" in footer on every ops page | No timestamp or refresh indicator on operational page |
 | **Analytical without export/drill** | Analysts need to dig; no drill-through = dead end | Enable drill-through, export, personalize visuals | Archetype=analytical + no drill-through pages |
 | **Narrative without thesis** | Story pages without a headline are just data dumps | Every narrative page leads with a finding statement | Narrative page without text visual stating insight |
+| **Diagnosis without prescription** | Executive/Narrative pages that state what happened but never what to do about it aren't management-ready — the reader still has to invent the next step themselves | Pair the finding with a `recommended_action` (a decision, next step, or explicit "awareness only") — see `design-brief.md` | Executive/Narrative page with a thesis title and no recommended action, decision, or "awareness only" marker anywhere on the page |
 | **Default "All" on large model** | Loads millions of rows on first view; slow, meaningless overview | Pre-filter to recent period or top-N by default | No default slicer selection + large dataset |
 | **Comparative with unsynchronized slicers** | Comparing A vs B but slicers don't apply equally | Use sync slicers across all compared pages/visuals | Comparative layout with independent slicer states |
 

@@ -32,6 +32,7 @@
 | 5 | **Highlight + grey context** | Hero data in brand color, everything else grey |
 | 6 | **Reader interactivity minimal** | No slicers on main narrative path |
 | 7 | **Chart chosen for the point** | Slope for rank change, waterfall for bridge, dumbbell for before/after |
+| 8 | **Recommended action closes every page** | The closing beat must be concrete and ownable ("Reallocate Q4 spend to EMEA enterprise"), not a vague gesture ("keep monitoring") — otherwise the reader is left to invent their own next step |
 
 ---
 
@@ -83,7 +84,7 @@ Anchor chart on the left (7/12 width), annotation panel on the right (5/12 width
 │                              │                           │
 ├──────────────────────────────┴───────────────────────────┤
 │  BODY TEXT                                               │
-│  What the chart shows → Why it matters → So what / action│  h=160
+│  What it shows → Why it matters → Recommended action     │  h=160
 │  (11-12pt, ~1.4 line height)                             │
 ├──────────────────────────────────────────────────────────┤
 │  [← Prev]                                    [Next →]    │  h=48
@@ -94,7 +95,7 @@ Anchor chart on the left (7/12 width), annotation panel on the right (5/12 width
 |------|--------|---------|
 | Title block | 56 px | Thesis sentence + subtitle |
 | Chart + annotations | 340 px | 7/12 anchor chart + 5/12 annotation panel |
-| Body text | 160 px | Narrative: shows → matters → so-what |
+| Body text | 160 px | Narrative: shows → matters → recommended action |
 | Navigation | 48 px | Prev / Next buttons (or page navigator) |
 
 ---
@@ -315,7 +316,7 @@ Interactivity is minimal and guided — the author controls pacing.
 |---|-------|-------|
 | 1 | Every page title is a thesis sentence | ☐ |
 | 2 | One anchor chart per page, annotated | ☐ |
-| 3 | Body text explains: shows → matters → so-what | ☐ |
+| 3 | Body text explains: shows → matters → recommended action (concrete, ownable — not "keep monitoring") | ☐ |
 | 4 | Palette is highlight + grey (max 2 non-grey colors) | ☐ |
 | 5 | Navigation (Prev/Next) always visible | ☐ |
 | 6 | No slicers on narrative pages | ☐ |

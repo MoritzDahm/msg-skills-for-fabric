@@ -2,13 +2,14 @@
 
 ## Core Principles
 
-1. **Palette family matches data family** — sequential for ordered, diverging for ±, categorical for nominal.
-2. **Never rainbow on ordered data** — rainbow has no perceptual order; it misleads.
-3. **Color is never the sole channel** — always pair with shape, label, or pattern (WCAG 1.4.1).
-4. **Cap categorical palettes at 7–8 hues** — beyond that, colors become indistinguishable.
-5. **Restraint beats vibrance** — most of the canvas should be neutral; color draws the eye to what matters.
-6. **Contrast is non-negotiable** — every text-on-background pair must meet WCAG AA.
-7. **Reserve semantic colors** — green/red/amber carry meaning; don't waste them on decoration.
+1. **Color reinforces a claim already made in words — it never carries one alone.** The title or label states the insight ("Revenue missed plan by 8%"); color amplifies where to look, it doesn't substitute for saying what happened. If removing all color would make the page meaningless rather than just less pretty, the words aren't doing their job.
+2. **Palette family matches data family** — sequential for ordered, diverging for ±, categorical for nominal.
+3. **Never rainbow on ordered data** — rainbow has no perceptual order; it misleads.
+4. **Color is never the sole channel** — always pair with shape, label, or pattern (WCAG 1.4.1).
+5. **Cap categorical palettes at 7–8 hues** — beyond that, colors become indistinguishable.
+6. **Restraint beats vibrance** — most of the canvas should be neutral; color draws the eye to what matters.
+7. **Contrast is non-negotiable** — every text-on-background pair must meet WCAG AA.
+8. **Reserve semantic colors** — green/red/amber carry meaning; don't waste them on decoration.
 
 ---
 

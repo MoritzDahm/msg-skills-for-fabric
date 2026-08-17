@@ -31,6 +31,7 @@
 | 5 | **One hero chart proving the headline** | Anchors the "why" behind the insight |
 | 6 | **3-color semantic palette** | Green / Red / Neutral + grey — nothing else |
 | 7 | **Drill-through for all detail** | Keeps surface clean; depth is one click away |
+| 8 | **State the recommended action, not just the finding** | "Revenue is 4% above plan — hold Q4 spend at current pace" not just the diagnosis; a page that only reports status still leaves the decision-maker to invent their own next step |
 
 ---
 
@@ -97,9 +98,9 @@ Full-width KPI row across the top, dual analysis charts below. No single hero �
 ```
 
 The callout row is conditional: use it for a thesis sentence, variance summary,
-exception note, or dynamic narrative that explains the hero chart. Do not fill
-it with a bare card repeating a measure already visible in the hero chart or KPI
-strip.
+exception note, dynamic narrative that explains the hero chart, or the page's
+`recommended_action`. Do not fill it with a bare card repeating a measure
+already visible in the hero chart or KPI strip.
 
 | Zone | Height | Content |
 |------|--------|---------|
@@ -137,9 +138,9 @@ dominant hero remains the chart.
 ```
 
 The callout row is conditional: use it for a thesis sentence, variance summary,
-exception note, or dynamic narrative that explains the hero chart. Do not fill
-it with a bare card repeating a measure already visible in the hero chart or KPI
-strip.
+exception note, dynamic narrative that explains the hero chart, or the page's
+`recommended_action`. Do not fill it with a bare card repeating a measure
+already visible in the hero chart or KPI strip.
 
 | Zone | Height | Content |
 |------|--------|---------|
@@ -281,3 +282,4 @@ Before shipping, verify every row:
 | 8 | Maximum ONE slicer visible | ☐ |
 | 9 | Visual headers hidden on all cards | ☐ |
 | 10 | Footer shows data source + refresh timestamp | ☐ |
+| 11 | Page states a `recommended_action` (or is explicitly marked `awareness_only`) — a finding without a next step is a diagnosis without a prescription | ☐ |

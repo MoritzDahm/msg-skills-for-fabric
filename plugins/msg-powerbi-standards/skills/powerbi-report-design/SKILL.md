@@ -105,7 +105,7 @@ analytical question. If the semantic model lacks the needed derived insight
 dynamic explanatory text), drop or repurpose that zone rather than filling it
 with a duplicate absolute measure.
 
-For multi-page reports, see [`references/archetype-composition.md`](references/archetype-composition.md) — common compositions (Executive + Drill, Ops + Detail, Story + Evidence, Multi-domain) + cross-page variant rotation rules. Avoid mono-archetype reports; same-archetype pages must rotate variants where data signals support it.
+For multi-page reports, see [`references/archetype-composition.md`](references/archetype-composition.md) — common compositions (Executive + Drill, Ops + Detail, Story + Evidence, Multi-domain), cross-page variant rotation rules, and the **vertical logic check**: read only the page titles top to bottom — they must compose into the report's core story, not read as unrelated facts. Avoid mono-archetype reports; same-archetype pages must rotate variants where data signals support it.
 
 ### Step 3 — Chart Selection
 
@@ -158,6 +158,7 @@ Design Brief:
       archetype: <Executive | Analytical | Operational | Narrative | Comparative>
       layout_variant: <A | B | C>
       variant_rationale: <one sentence: which data signal drove this pick>
+      recommended_action: <required for Executive/Narrative pages: the decision or next step this page should drive; use awareness_only: true instead if genuinely status-only>
       layout_contract:
         canvas: { width: 1920, height: 1080, margin: 32, gutter: 24, snap: 8 }
         grid:
@@ -224,6 +225,14 @@ data, use a Year dropdown/tile unless users need day/month range exploration
 and the column is a renderable Date/DateTime field.
 
 **Textbox scrollbar** — Textboxes need enough height for their font size plus any VCO/theme padding or Desktop renders a scrollbar. Height formula: `max(18, ⌈fontSize × 25/16⌉) + padding_top + padding_bottom`. If the theme uses wildcard padding, add a textbox-specific zero-padding override or increase the textbox height.
+
+**Diagnosis without prescription** — An Executive Summary or Narrative Story
+page that states a finding ("Revenue missed plan by 8%") but never says what
+to do about it isn't management-ready; the reader still has to invent the
+next step. Give every such page a `recommended_action` (a decision, a next
+step, an owner) or an explicit `awareness_only: true` if the page is
+genuinely status-only. See `references/design-brief.md` and
+`references/anti-patterns.md`.
 
 **Color-map contract** — Every measure-bound visual must follow `Design Brief.color_map`. `measure_match` means exact base color reuse across cards, lines, bars, maps, and tables; `gradient` means tint → base for that same measure. Audit the built report for mismatches before handoff.
 

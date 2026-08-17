@@ -62,3 +62,38 @@ reports stitched together. If the user requests genuinely different
 tones for different audiences (e.g., "an exec page and an ops page"),
 that's a signal to produce two reports, not one report with two
 identities.
+
+## Vertical logic across page titles
+
+Read only the `page_title` text of every page, top to bottom in
+navigation order — nothing else. Together they must compose into the
+report's core story: the single decision or takeaway the report was
+built to deliver (captured upstream as `core_story` in
+`powerbi-report-planning`'s report spec when this skill runs inside
+the planner workflow, or drafted directly from the prompt when this
+skill runs standalone).
+
+**Fails this check:**
+
+- Titles that are each independently true but don't build an argument
+  — "Revenue by Region", "Costs by Quarter", "Headcount Trend" reads as
+  three unrelated facts, not a story.
+- A thesis that silently flips or contradicts itself page to page
+  without that tension being the intentional point of a page ("here's
+  where the picture changes").
+
+**Passes this check:**
+
+- "Revenue missed plan by 8%, driven by EMEA" → "EMEA enterprise deals
+  slipped past quarter-end" → "Three deals account for 70% of the
+  shortfall" — each title narrows or supports the one before it, and
+  the sequence reads as one argument, not three dashboards stapled
+  together.
+
+Apply this check while drafting titles during Step 2 (Archetype
+Router), not as an afterthought once every page is already laid out —
+reconciling titles after the fact tends to produce vague relabeling
+rather than a real argument. If a report's pages genuinely can't be
+made to compose into one story (truly independent subject areas with
+no shared decision), that is itself a signal the request should be
+split into separate reports rather than forced into one.
