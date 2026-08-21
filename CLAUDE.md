@@ -1,6 +1,6 @@
 # Microsoft Fabric Development Instructions
 
-> **Update Check**: At session start, check for skills-for-fabric updates by reading the remote `package.json` version from `https://github.com/microsoft/skills-for-fabric` (via `git fetch origin main --quiet && git show origin/main:package.json` or GitHub API with authentication) and comparing with the local `package.json` version. Show changelog if update available.
+> **Updates**: `fabric-collection` is a third-party marketplace, so enable auto-update once: run `/plugin`, open **Marketplaces**, select `fabric-collection`, and choose **Enable auto-update**. Administrators can instead set `"autoUpdate": true` on its `extraKnownMarketplaces` entry in managed settings. To update on demand, run `claude plugin update <plugin>@fabric-collection`. If these files were copied in loosely rather than installed as a plugin, compare the local `package.json` version against the remote (`git fetch origin main --quiet && git show origin/main:package.json`) and re-copy if it is newer.
 
 This project uses Microsoft Fabric for data engineering, warehousing, and analytics.
 
@@ -50,21 +50,18 @@ https://learn.microsoft.com/en-us/rest/api/fabric/articles/
 ### Data Engineering
 - **Lakehouse**: Delta tables, Spark, file management
   - Docs: https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview
-  - Authoring skill: `skills/spark-authoring-cli/SKILL.md` — notebook authoring, Lakehouse authoring, Materialized Lake Views, and refresh-friendly Spark patterns.
-  - Operations skill: `skills/mlv-operations-cli/SKILL.md` — MLV refresh scheduling, job monitoring, and cancellation via REST API. Use for "schedule MLV refresh", "trigger refresh", "monitor refresh status".
+  - Spark skill: `skills/spark-cli/SKILL.md` — notebook authoring and runs, Livy analysis, Spark diagnostics, and the full Materialized Lake View lifecycle.
 - **Notebooks**: PySpark notebooks with mssparkutils
   - Docs: https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook
 - **Spark Jobs**: Production Spark workloads
   - Docs: https://learn.microsoft.com/en-us/fabric/data-engineering/spark-job-definition
-  - Operations skill: `skills/spark-operations-cli/SKILL.md` — read-only triage for failed jobs, stuck sessions, performance bottlenecks
+  - Spark diagnostics: `skills/spark-cli/SKILL.md` — read-only triage for failed jobs, stuck sessions, and performance bottlenecks
 
 ### Data Warehouse
 - **Warehouse**: T-SQL data warehouse
   - Docs: https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing
   - Note: Limited T-SQL surface area - check supported features
-  - Authoring skill: `skills/sqldw-authoring-cli/SKILL.md` — DDL, DML, ingestion, schema changes
-  - Consumption skill: `skills/sqldw-consumption-cli/SKILL.md` — read-only T-SQL queries
-  - Operations skill: `skills/sqldw-operations-cli/SKILL.md` — performance diagnostics, slow queries, query insights
+  - Skill: `skills/sqldw-cli/SKILL.md` — one skill, three modes: authoring (DDL, DML, ingestion, schema changes), consumption (read-only T-SQL queries), operations (performance diagnostics, slow queries, query insights)
 
 ### Application Lifecycle Management (ALM)
 - **Deployment Pipelines**: Promote Fabric content across dev/test/prod stages
@@ -95,9 +92,9 @@ https://learn.microsoft.com/en-us/rest/api/fabric/articles/
     - Authoring mode: create, configure and deploy Eventstream topologies
     - Consumption mode: list, inspect and monitor Eventstreams
   - Primary CLI tool: `az rest` via Fabric REST API
-- **Event Schema Sets**: Read-only catalogs of event types and message schemas
+- **Event Schema Sets**: Catalogs of event types and message schemas
   - Docs: https://learn.microsoft.com/en-us/rest/api/fabric/eventschemaset/items/
-  - Consumption skill: `skills/eventschemaset-consumption-cli/SKILL.md` — list, inspect, and decode Event Schema Set definitions (`eventTypes`, `schemas`)
+  - Unified skill: `skills/eventschemaset-cli/SKILL.md` — authoring mode to create, update (properties and definition), and delete Event Schema Sets (`eventTypes`, `schemas`); consumption mode to list, inspect, and decode Event Schema Set definitions read-only
   - Primary CLI tool: `az rest` via Fabric REST API (`.../eventSchemaSets`)
 - **Activator**: Alerts, notifications, and automated actions over Fabric data/events
   - Docs: https://learn.microsoft.com/en-us/fabric/real-time-intelligence/data-activator/activator-introduction
@@ -147,6 +144,11 @@ https://learn.microsoft.com/en-us/rest/api/fabric/articles/
   - Docs: https://learn.microsoft.com/en-us/fabric/data-science/concept-data-agent
 - **Data Agent Evaluation**: Testing and validating Data Agent accuracy
   - Docs: https://learn.microsoft.com/en-us/fabric/data-science/fabric-data-agent-sdk
+
+### Variable Library (CI/CD)
+- **Variable Library**: parameterize workspaces across environments (dev/test/prod) via named variables and value sets
+  - Authoring skill: `skills/variable-library-cli/SKILL.md` — definitions, value sets, active value set item state, and VL-side consumer wiring via the item-definition REST API
+  - Docs: https://learn.microsoft.com/en-us/fabric/cicd/variable-library/variable-library-overview
 
 ### Git Integration (ALM / CI-CD)
 - **Git Integration**: Bind a workspace to source control (Azure DevOps / GitHub) and sync items

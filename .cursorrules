@@ -1,6 +1,6 @@
 # Microsoft Fabric Development Rules
 
-> **Update Check**: At session start, check for skills-for-fabric updates by reading the remote `package.json` version from `https://github.com/microsoft/skills-for-fabric` (via `git fetch origin main --quiet && git show origin/main:package.json` or GitHub API with authentication) and comparing with the local `package.json` version. Show changelog if update available.
+> **Updates**: These instructions do not run a session-start update check. Refresh them through your host's plugin or marketplace update flow, or run `git pull` if you use a manual clone.
 
 ## Context
 This project works with Microsoft Fabric for data engineering, warehousing, and analytics.
@@ -32,18 +32,15 @@ Developers use REST APIs to manage artifacts, then protocol-specific connections
 - Use mssparkutils for Fabric-specific operations (fs, credentials, notebook)
 - Include partition columns for large tables
 - Run OPTIMIZE and VACUUM for table maintenance
-- For Materialized Lake View authoring and incremental refresh review, use `skills/spark-authoring-cli/SKILL.md`.
-- For MLV refresh scheduling, job monitoring, and cancellation, use `skills/mlv-operations-cli/SKILL.md`.
-- Resource docs: `skills/spark-authoring-cli/resources/materialized-lake-view-patterns.md` and `skills/spark-authoring-cli/resources/mlv-incremental-refresh-patterns.md`.
+- Use `skills/spark-cli/SKILL.md` for notebook authoring and runs, Livy analysis, Spark diagnostics, and the full Materialized Lake View lifecycle.
+- MLV authoring resources: `skills/spark-cli/references/authoring/resources/materialized-lake-view-patterns.md` and `skills/spark-cli/references/authoring/resources/mlv-incremental-refresh-patterns.md`.
 
 ### Warehouse (T-SQL)
 - Check T-SQL surface area - not all SQL Server features are supported
 - Use CTAS for large transformations
 - Prefer stored procedures for reusable logic
 - Always include TOP/LIMIT when exploring data
-- Authoring skill: `skills/sqldw-authoring-cli/SKILL.md`
-- Consumption skill: `skills/sqldw-consumption-cli/SKILL.md`
-- Operations skill: `skills/sqldw-operations-cli/SKILL.md`
+- Skill: `skills/sqldw-cli/SKILL.md` - one skill with authoring, consumption and operations modes
 
 ### SQL Database (in Fabric, OLTP)
 - OLTP database with an enforced T-SQL surface (PK/FK/constraints), Query Store, and DMVs - distinct from the Warehouse
@@ -70,7 +67,7 @@ Developers use REST APIs to manage artifacts, then protocol-specific connections
 - Unified skill: `skills/eventhouse-cli/SKILL.md` with authoring and consumption modes
 
 ### Spark Operations
-- Operations skill: `skills/spark-operations-cli/SKILL.md` — read-only triage for failed jobs, stuck sessions, performance bottlenecks
+- Spark skill: `skills/spark-cli/SKILL.md` — read-only triage for failed jobs, stuck sessions, and performance bottlenecks
 
 ### Azure Monitor Observability (Real-Time Intelligence)
 - Operations skill: `skills/azmon-mirroredcatalogs-operations-cli/SKILL.md` — onboard Azure Monitor / App Insights / Log Analytics observability data into Fabric and correlate telemetry with business data for business-impact insights, an optional Real-Time (KQL) dashboard, and opt-in Operations Agent instructions
@@ -88,10 +85,11 @@ Developers use REST APIs to manage artifacts, then protocol-specific connections
 - Eventstream skill: `skills/eventstream-cli/SKILL.md` (authoring and consumption are modes)
 
 ### Event Schema Sets (Real-Time Intelligence)
-- Read-only catalogs of event types and message schemas, accessed via the Fabric Items REST API (`.../eventSchemaSets`)
+- Catalogs of event types and message schemas, accessed via the Fabric Items REST API (`.../eventSchemaSets`)
 - Discover Event Schema Sets, inspect item properties, and retrieve then base64-decode the item definition to summarize `eventTypes` and `schemas`
+- Create, update (properties and definition), and delete Event Schema Sets
 - Primary CLI tool: `az rest` against the Fabric REST API
-- Consumption skill: `skills/eventschemaset-consumption-cli/SKILL.md`
+- Unified skill: `skills/eventschemaset-cli/SKILL.md` with authoring and consumption modes
 
 ### Activator / Reflex (Real-Time Intelligence)
 - Use Fabric REST API to create Activator items and update Reflex definitions
@@ -146,6 +144,12 @@ Developers use REST APIs to manage artifacts, then protocol-specific connections
 - Validate few-shot examples before adding to agents
 - Test sandbox stage before production
 - Track evaluation accuracy over time
+
+### Variable Library (CI/CD)
+- Parameterize workspaces across environments (dev/test/prod) with named variables and value sets
+- Variable Library has two planes: definition files in Git, and active value set item state in the workspace — do not treat the active value set as a Git edit
+- Omit the `format` field entirely on definition requests (do not send `format: null`)
+- Authoring skill: `skills/variable-library-cli/SKILL.md`
 
 ### Git Integration (ALM / CI-CD)
 - Operations skill: `skills/git-integration-operations-cli/SKILL.md` — drive the Git lifecycle from CLI (connect, commit, update/pull, status, resolve conflicts, disconnect, SP sync) via `fab api` / `az rest`

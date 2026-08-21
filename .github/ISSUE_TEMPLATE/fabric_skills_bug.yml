@@ -109,7 +109,7 @@ body:
     attributes:
       label: Affected skill(s)
       description: Which Fabric Skills skill(s) does this affect, if known?
-      placeholder: "e.g. sqldw-consumption-cli, spark-authoring-cli"
+      placeholder: "e.g. sqldw-cli, spark-authoring-cli"
     validations:
       required: false
 
@@ -117,7 +117,7 @@ body:
     id: skills
     attributes:
       label: Fabric Skills version
-      description: Check `package.json` or run the check-updates skill.
+      description: Check `package.json`, or the version field in the installed plugin manifest.
       placeholder: "e.g. 1.2.0"
     validations:
       required: true

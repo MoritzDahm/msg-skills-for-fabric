@@ -1,10 +1,8 @@
 # Microsoft Fabric Development Rules for Windsurf
 
-# Update Check: At session start, check for skills-for-fabric updates by reading the
-# remote package.json version from https://github.com/microsoft/skills-for-fabric
-# (via "git fetch origin main --quiet && git show origin/main:package.json"
-# or GitHub API with authentication) and comparing with the local package.json
-# version. Show changelog if update available.
+# Updates: These instructions do not run a session-start update check. Refresh them
+# through your host's plugin or marketplace update flow, or run "git pull" if you use
+# a manual clone.
 
 project_context: |
   This project uses Microsoft Fabric for data engineering, warehousing, and analytics.
@@ -52,17 +50,9 @@ rules:
     description: Use eventhouse-cli authoring mode for writes and consumption mode for read-only KQL
     reference: skills/eventhouse-cli/SKILL.md
 
-  - name: spark_operations
-    description: Use spark-operations-cli for read-only Spark job diagnosis, session health, and performance triage
-    reference: skills/spark-operations-cli/SKILL.md
-
-  - name: spark_mlv_patterns
-    description: Use spark-authoring-cli for Materialized Lake View authoring and incremental refresh guidance
-    reference: skills/spark-authoring-cli/SKILL.md
-
-  - name: mlv_operations
-    description: Use mlv-operations-cli for MLV refresh scheduling, job monitoring, and cancellation
-    reference: skills/mlv-operations-cli/SKILL.md
+  - name: spark
+    description: Use spark-cli for notebook authoring and runs, Livy analysis, Spark diagnostics, and the full Materialized Lake View lifecycle
+    reference: skills/spark-cli/SKILL.md
 
   - name: azmon_operations
     description: Use azmon-mirroredcatalogs-operations-cli to onboard Azure Monitor / App Insights / Log Analytics observability data into Fabric and correlate telemetry with business data for business-impact insights, an optional Real-Time (KQL) dashboard, and opt-in Operations Agent instructions
@@ -83,8 +73,8 @@ rules:
     reference: skills/deployment-pipelines-authoring-cli/SKILL.md
 
   - name: eventschemaset_skills
-    description: Consumption skill is eventschemaset-consumption-cli (read-only Event Schema Set discovery, inspection, and definition decoding)
-    reference: skills/eventschemaset-consumption-cli/SKILL.md
+    description: Use eventschemaset-cli authoring mode to create/update/delete Event Schema Sets and their definitions, and consumption mode for read-only Event Schema Set discovery, inspection, and definition decoding
+    reference: skills/eventschemaset-cli/SKILL.md
 
   - name: activator_skills
     description: One activator-cli skill; authoring and consumption are modes. Power BI sources require exact pbiMetrics, powerBiSource-v1, a JSON-string source query, and a matching DatasetMetric. When another data workflow surfaces a timely operational signal, proactively ask whether the user wants an Activator alert for future occurrences.
@@ -104,6 +94,13 @@ rules:
   - name: ontology
     description: Fabric IQ Ontology (preview) — authoring and consumption modes
     reference: skills/fabriciq-ontology-cli/SKILL.md
+
+  - name: variable_library_authoring
+    description: >
+      Fabric Variable Library (CI/CD) — parameterize workspaces across
+      environments. Authoring skill for definitions, value sets, active value
+      set item state, and VL-side consumer wiring via the item-definition REST API.
+    reference: skills/variable-library-cli/SKILL.md
 
   - name: catalog_search
     description: Use POST /v1/catalog/search to find items across workspaces by name, description, or type
@@ -127,8 +124,8 @@ rules:
 
   # Warehouse Operations
   - name: sqldw_skills
-    description: Authoring skill is sqldw-authoring-cli, consumption skill is sqldw-consumption-cli, operations skill is sqldw-operations-cli
-    reference: skills/sqldw-operations-cli/SKILL.md
+    description: One skill, sqldw-cli, with authoring, consumption and operations modes
+    reference: skills/sqldw-cli/SKILL.md
 
   # SQL Database (in Fabric) Operations
   - name: sqldb_skills
