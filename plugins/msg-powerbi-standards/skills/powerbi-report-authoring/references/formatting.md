@@ -310,6 +310,16 @@ sufficient (the static entry is redundant but harmless).
 > check `powerbi-report-author formatting describe-object <type> <object>` for
 > a `_selectorHint` on that object.
 
+> ⚠️ **A missing explicit `"show": true` is an equally silent failure, separate from the selector issue above.**
+> On `actionButton`/`pageNavigator`/`bookmarkNavigator` `fill`/`text`/`icon` objects, `show`
+> defaults to off if omitted — the button then renders with no fill and/or no visible text,
+> even when `fillColor`/`fontColor` are set correctly AND the dual-entry pattern is followed.
+> `powerbi-report-author validate` does not catch this (the JSON is schema-valid either way);
+> the only way to see it is a real Desktop/Service render. **Always include `"show": true` on
+> every entry** (both the static entry and the `{ id: "default" }` entry) for `fill` and `text`
+> on these three visual types — copy the examples above verbatim rather than reconstructing them
+> from memory, since they already include it correctly.
+
 ### Which Objects Support Selectors?
 
 | Object | Supports | Selector Types |
