@@ -29,10 +29,6 @@ __pycache__/
 .env
 .env.local
 
-# Eval test results -- individual per-skill detail files
-# Only the merged summary (eval-results.md) and regression_analysis.md are tracked
-tests/full-eval-tests/result/eval-*-results.md
-tests/full-eval-tests/result/eval-run-telemetry.json
 coverage-gap-report.json
 coverage-enforcement.json
 validation-results.json
