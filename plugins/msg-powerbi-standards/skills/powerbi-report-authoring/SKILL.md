@@ -275,17 +275,30 @@ dual-entry pattern in `references/formatting.md`.
 ## Edit → Validate → Reload → Screenshot Loop
 
 For rendered-output changes, follow this loop. Do not report completion until
-validation, reload, and screenshot review are clean.
+validation and screenshot review are clean.
+
+**Before step 3, check the platform.** Power BI Desktop is Windows-only. If
+the OS is not Windows (macOS, Linux), skip steps 3–5 entirely — do not run
+`powerbi-desktop status` first and react to the error afterward. Go directly
+to [`playwright-browser.md`](references/playwright-browser.md) for the
+publish/screenshot/review steps instead, then resume at step 6. This applies
+even mid-loop: if `status` unexpectedly returns `UNSUPPORTED_OS`, that is not
+a dead end to report to the user — it is the same signal, encountered late.
+Switch to `playwright-browser.md` and continue; do not fall back to asking
+the user to run the loop themselves on a different machine.
 
 ```text
-┌──────────────────────────────────────────────────────────┐
-│  1. Edit PBIR files                                      │
-│  2. Validate           → errors? fix and go to 1         │
-│  3. Desktop status     → choose the correct bridge PID   │
-│  4. Desktop reload     → error? fix PBIR and go to 1     │
-│  5. Screenshot/review  → issues? fix and go to 1         │
-│  6. Clean              → report completion               │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  1. Edit PBIR files                                              │
+│  2. Validate             → errors? fix and go to 1               │
+│  Windows + Desktop available?                                    │
+│    yes → 3. Desktop status  → choose the correct bridge PID      │
+│          4. Desktop reload  → error? fix PBIR and go to 1        │
+│          5. Screenshot/review → issues? fix and go to 1          │
+│    no  → 3'. playwright-browser.md (publish, screenshot, review) │
+│          → issues? fix and go to 1                               │
+│  6. Clean                → report completion                     │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 **Rules:**
@@ -293,9 +306,10 @@ validation, reload, and screenshot review are clean.
   report definition directory (e.g., `Sales.Report`), not the `.pbip` file or
   project root. Fix all errors before reload — invalid PBIR errors will surface
   in Desktop.
-- **Steps 3–5** — use `powerbi-desktop` CLI: `status` to choose the PID, then
-  `reload --pid <pid>` for PBIP/PBIR current files and screenshots from the
-  same PID. Then perform the screenshot review below.
+- **Steps 3–5 (Windows + Desktop available)** — use `powerbi-desktop` CLI:
+  `status` to choose the PID, then `reload --pid <pid>` for PBIP/PBIR current
+  files and screenshots from the same PID. Then perform the screenshot review
+  below.
   After `status`, if the selected instance has `hasUnsavedChanges: true`, do
   not reload yet; ask the user to save or discard their Desktop UI changes,
   rerun `status`, and continue only once it is false.
@@ -305,6 +319,15 @@ validation, reload, and screenshot review are clean.
     **Exception:** Theme JSON files are cache-keyed by name — Desktop may not
   pick up edits on reload. Either rename the theme file with a random suffix
   (and update `report.json`), or close and reopen Desktop.
+- **Step 3' (macOS/Linux, or Desktop unavailable/`UNSUPPORTED_OS`)** — do not
+  attempt `powerbi-desktop status` first, or if it already ran and returned
+  `UNSUPPORTED_OS`, do not treat that as a stopping point. Follow
+  [`playwright-browser.md`](references/playwright-browser.md) instead: publish
+  the current PBIR to the target Fabric workspace, resolve the report's
+  `webUrl`, screenshot each page with Playwright, then perform the same
+  screenshot review below. This path has no PID/reload concept — publish is
+  the equivalent of reload, since Fabric Service always renders whatever was
+  last published.
 
 **Desktop CLI commands:**
 
