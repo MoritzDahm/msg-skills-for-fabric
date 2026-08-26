@@ -1,0 +1,28 @@
+{
+    "microsoft": {
+        "dataColors": ["#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#000000"],
+        "good": "#1AAB40", "neutral": "#D9B300", "bad": "#D64554",
+        "maximum": "#118DFF", "center": "#D9B300", "minimum": "#DEEFFF", "null": "#FF7F48",
+        "textPrimary": "#202020", "textSecondary": "#252423", "axisLabel": "#605E5C",
+        "borderColor": "#E8E8E8", "gridlineColor": "#F3F2F1", "gridlineColorLight": "#E8E8E8",
+        "surfaceBase": "#FFFFFF", "surfaceAlt": "#F9F9F8",
+        "fontBody": "Segoe UI Variable, Segoe UI, sans-serif",
+        "fontHeader": "Segoe UI Semibold, Segoe UI, sans-serif",
+        "headerWeight":"700",
+        "headerBold": true,
+        "borderRadius": 8
+    },
+    "msg": {
+        "dataColors": ["#A01441", "#3D7A8F", "#6F6F6F", "#C0466C", "#7DBACE", "#9A9A9A", "#4A4A4A", "#D4D4D4"],
+        "good": "#3D7A8F", "neutral": "#6F6F6F", "bad": "#A01441",
+        "maximum": "#A01441", "center": "#6F6F6F", "minimum": "#DCEEF2", "null": "#9A9A9A",
+        "textPrimary": "#202020", "textSecondary": "#252423", "axisLabel": "#605E5C",
+        "borderColor": "#E8E8E8", "gridlineColor": "#F3F2F1", "gridlineColorLight": "#E8E8E8",
+        "surfaceBase": "#FFFFFF", "surfaceAlt": "#F9F9F8",
+        "fontBody": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
+        "fontHeader": "Arial, Segoe UI Semibold, sans-serif",
+        "headerWeight": "700",
+        "headerBold": true,
+        "borderRadius": 8
+    }
+}
