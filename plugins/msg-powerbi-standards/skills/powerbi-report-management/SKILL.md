@@ -499,11 +499,20 @@ the LRO to terminal success.
 
 **10. Clean up** any temporary files created during the flow.
 
-> **Note on report-side verification**: there is no reliable
-> programmatic way to confirm a report renders correctly post-publish —
-> the report lives at a Fabric Service URL and visual rendering
-> requires a browser session. Surface the workspace/report URL so the
-> user can verify in the browser.
+> **Note on report-side verification**: after publish, verify the report
+> renders correctly rather than only confirming the LRO reached terminal
+> success. If Power BI Desktop is available, reopen the published report
+> and follow `powerbi-report-authoring`'s
+> [powerbi-desktop.md](../powerbi-report-authoring/references/powerbi-desktop.md)
+> reload-and-screenshot loop. If Desktop is not available (macOS, Linux, or
+> any environment without the Desktop Bridge CLI), follow
+> [playwright-browser.md](../powerbi-report-authoring/references/playwright-browser.md)
+> instead — it resolves the report's `webUrl` from this workspace's Items
+> API response and screenshots the rendered Fabric Service page with
+> Playwright. Either path hands off to `screenshot-review.md` for the
+> actual review; only surface the raw workspace/report URL to the user as
+> a fallback if neither verification path is available in the current
+> session.
 
 ### Modifying an existing report in Fabric
 

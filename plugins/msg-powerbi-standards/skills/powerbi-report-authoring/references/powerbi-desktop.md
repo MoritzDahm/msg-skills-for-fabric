@@ -5,6 +5,24 @@
 > output. This file is the detailed runbook; `SKILL.md` keeps the short command
 > loop because visual verification is a critical report-authoring step.
 
+## Platform check — do this first
+
+Power BI Desktop is Windows-only. Before following anything below, confirm
+Desktop is actually usable in this environment:
+
+- If the OS is macOS or Linux (`uname` reports `Darwin` or `Linux`), Desktop
+  cannot run at all. Stop here — do not attempt to install or invoke the
+  Desktop Bridge CLI. Follow
+  [playwright-browser.md](playwright-browser.md) instead.
+- On Windows, if `powerbi-desktop status` (after Setup, below) returns no
+  connected instance for the target PBIP, do not block the report-authoring
+  workflow on getting Desktop running. Fall back to
+  [playwright-browser.md](playwright-browser.md) for this verification pass
+  instead of stalling.
+
+Only proceed with the rest of this file once a connected Desktop instance
+for the target report is confirmed via `powerbi-desktop status`.
+
 ## Core Rule
 
 For PBIR edits that affect rendered output, do not rely on JSON validation alone.

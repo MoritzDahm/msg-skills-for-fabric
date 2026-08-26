@@ -81,7 +81,6 @@ Install the main Fabric bundle, or a focused one:
 # Everything
 /plugin install fabric-skills@fabric-collection
 
-<<<<<<< HEAD
 # Authoring: APIs, automation, notebooks, schemas, ingestion, and deployment
 /plugin install fabric-authoring@fabric-collection
 
@@ -91,11 +90,6 @@ Install the main Fabric bundle, or a focused one:
 # Operations: diagnostics and performance investigation
 /plugin install fabric-operations@fabric-collection
 
-=======
-Or install the Power BI authoring bundle:
-
-```bash
->>>>>>> main
 # Power BI authoring: semantic models, Power BI report skills, and PBIP workflows
 /plugin install powerbi-authoring@fabric-collection
 ```
@@ -120,7 +114,6 @@ copilot plugin update --all
 
 ### Automatic update checking
 
-<<<<<<< HEAD
 Installed Fabric bundles include a non-blocking `check-updates` skill. The
 first Fabric skill invoked in a session detects the marketplace plugin, direct
 plugin, or positively identified skills-for-fabric Git clone that supplied it.
@@ -169,59 +162,17 @@ without it, they fall back to generic design defaults.
   manually: copy `plugins/msg-powerbi-standards/skills/company-powerbi-standards/`
   into your project's skills folder alongside Microsoft's `powerbi-authoring`
   bundle.
-=======
-Updates are handled by the agent host, not by a skill in this repository.
-
-**GitHub Copilot CLI** -- opt in once by adding `autoUpdate` to the
-`fabric-collection` entry in your own user settings
-(`~/.copilot/settings.json`, or `%USERPROFILE%\.copilot\settings.json` on
-Windows):
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "fabric-collection": {
-      "source": { "source": "github", "repo": "microsoft/skills-for-fabric" },
-      "autoUpdate": true
-    }
-  }
-}
-```
-
-Copilot CLI then refreshes the bundle at the start of every session in a trusted
-working directory. This opt-in is honored only from your personal user settings
--- a repository or managed (MDM) setting cannot enable or redirect auto-update
-for a marketplace. Auto-update is also skipped by default in CI. See the
-[Copilot CLI plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference).
-
-**Claude Code** -- `fabric-collection` is a third-party marketplace, so enable
-auto-update once: run `/plugin`, open **Marketplaces**, select
-`fabric-collection`, and choose **Enable auto-update**. Administrators can
-instead set `"autoUpdate": true` on its `extraKnownMarketplaces` entry in
-managed settings.
-
-**Cursor, Windsurf, and other hosts** -- re-run the host's plugin or marketplace
-update command, or `git pull` a manual clone.
-
-Every release bumps the `version` field in each plugin manifest, which lets
-Copilot CLI and Claude Code detect a new release after auto-update is enabled.
->>>>>>> main
 
 ## What is included
 
 | Bundle / folder | Use it for |
 |--------|------------|
-<<<<<<< HEAD
 | `fabric-skills` | Complete Microsoft Fabric skill bundle: authoring, consumption, operations, migration, and end-to-end architecture skills. |
 | `fabric-authoring` | Creating and managing Fabric items through REST APIs, CLI automation, notebooks, T-SQL, KQL, Dataflows Gen2, Eventstreams, and semantic models. |
 | `fabric-consumption` | Read-only exploration and query workflows across Warehouses, Lakehouses, Power BI semantic models, Eventhouse/KQL databases, Eventstreams, Dataflows Gen2, and catalog search. |
 | `fabric-operations` | Performance and health diagnostics, including warehouse query insights and slow-query investigation. |
 | `powerbi-authoring` | Authoring Power BI semantic models, reports, and PBIP workflows, including report planning, design, authoring, and management. |
 | `msg-powerbi-standards` | msg's corporate Power BI design-standards skill — a customizable template plus msg's own worked example. |
-=======
-| `fabric-skills` | Complete Microsoft Fabric skill bundle, including authoring, consumption, operations, migration, and end-to-end architecture skills. |
-| `powerbi-authoring` | Authoring Power BI semantic models, reports, and PBIP workflows, including Power BI report planning, design, authoring, and management. |
->>>>>>> main
 
 See [CHANGELOG.md](CHANGELOG.md) for upstream release notes.
 
