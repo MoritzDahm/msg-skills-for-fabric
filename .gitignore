@@ -12,7 +12,6 @@ Thumbs.db
 node_modules/
 
 # Python
-tests/__pycache__/
 __pycache__/
 *.pyc
 .pytest_cache/

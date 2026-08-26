@@ -1,4 +1,16 @@
-# EVENTHOUSE-AUTHORING-CORE.md — KQL Management Command Patterns for Fabric Eventhouse
+# authoring-core.md — KQL Management Command Patterns for Fabric Eventhouse
+
+## Contents
+
+- [Authoring Capability Matrix](#authoring-capability-matrix)
+- [Table Management and Schema Evolution](#table-management-and-schema-evolution)
+- [Ingestion and Data Mappings](#ingestion-and-data-mappings)
+- [Policies](#policies)
+- [Materialized Views](#materialized-views)
+- [Stored Functions and Update Policies](#stored-functions-and-update-policies)
+- [External Tables](#external-tables)
+- [Permission Model](#permission-model)
+- [Authoring Gotchas and Troubleshooting Reference](#authoring-gotchas-and-troubleshooting-reference)
 
 > **Purpose**: Shared reference for Eventhouse authoring skills. Covers table management, ingestion, policies, materialized views, functions, and schema evolution for Fabric Eventhouse and KQL Databases.
 > **Not a tutorial** — assumes familiarity with KQL management commands. Focus is Fabric-specific behaviour and CLI-driven workflows.
@@ -7,7 +19,7 @@
 
 ## Authoring Capability Matrix
 
-> **Connection**: identical to consumption — see `EVENTHOUSE-CONSUMPTION-CORE.md`. Management commands (`.create`, `.alter`, `.drop`) require **Admin** or **Ingestor** database-level roles.
+> **Connection**: identical to consumption mode. Management commands (`.create`, `.alter`, `.drop`) require **Admin** or **Ingestor** database-level roles.
 
 | Capability | KQL Database (Eventhouse) | Shortcut (OneLake) |
 |---|---|---|

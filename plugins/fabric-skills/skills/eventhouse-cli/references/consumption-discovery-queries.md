@@ -1,5 +1,14 @@
 # KQL Schema Discovery Queries
 
+## Contents
+
+- [Table and Column Discovery](#table-and-column-discovery)
+- [Function and View Discovery](#function-and-view-discovery)
+- [Policy Discovery](#policy-discovery)
+- [External Tables and Ingestion Mappings](#external-tables-and-ingestion-mappings)
+- [Security Discovery](#security-discovery)
+- [Database Overview Script](#database-overview-script)
+
 Reference for schema exploration commands used during agentic discovery workflows.
 
 ---
