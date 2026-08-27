@@ -30,11 +30,13 @@
         "columnHeaders": [{
           "autoSizeColumnWidth": true,
           "columnAdjustment": "growToFit",
+          "fontFamily": "{{fontBody}}",
           "backColor": { "solid": { "color": "{{gridlineColor}}" } },
           "fontColor": { "solid": { "color": "{{textSecondary}}" } },
           "bold": true
         }],
         "values": [{
+          "fontFamily": "{{fontBody}}",
           "backColorPrimary": { "solid": { "color": "{{surfaceBase}}" } },
           "backColorSecondary": { "solid": { "color": "{{surfaceAlt}}" } },
           "fontColorPrimary": { "solid": { "color": "{{textSecondary}}" } },
@@ -47,11 +49,13 @@
         "columnHeaders": [{
           "autoSizeColumnWidth": true,
           "columnAdjustment": "growToFit",
+          "fontFamily": "{{fontBody}}",
           "backColor": { "solid": { "color": "{{gridlineColor}}" } },
           "fontColor": { "solid": { "color": "{{textSecondary}}" } },
           "bold": true
         }],
         "values": [{
+          "fontFamily": "{{fontBody}}",
           "backColorPrimary": { "solid": { "color": "{{surfaceBase}}" } },
           "backColorSecondary": { "solid": { "color": "{{surfaceAlt}}" } },
           "fontColorPrimary": { "solid": { "color": "{{textSecondary}}" } },
@@ -61,8 +65,8 @@
     },
     "cardVisual": {
       "*": {
-        "value": [{ "bold": true, "$id": "default" }],
-        "label": [{ "show": true, "$id": "default" }],
+        "value": [{ "bold": true, "fontFamily": "{{fontBody}}", "$id": "default" }],
+        "label": [{ "show": true, "fontFamily": "{{fontBody}}", "$id": "default" }],
         "cardCalloutArea": [{ "paddingUniform": 0 }],
         "border": [{ "show": true, "color": { "solid": { "color": "{{borderColor}}" } }, "radius": {{borderRadius}} }],
         "title": [{ "show": false }],
@@ -79,10 +83,10 @@
     },
     "barChart": {
       "*": {
-        "labels": [{ "show": true, "fontSize": 10 }],
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
         "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
         "categoryAxis": [{
-          "show": true, "fontSize": 10,
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
         }],
@@ -92,23 +96,23 @@
     },
     "clusteredBarChart": {
       "*": {
-        "labels": [{ "show": true, "fontSize": 10 }],
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
         "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
         "categoryAxis": [{
-          "show": true, "fontSize": 10,
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
         }],
         "dataPoint": [{ "borderShow": false }],
-        "legend": [{ "show": true, "fontSize": 9, "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
+        "legend": [{ "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}", "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
       }
     },
     "columnChart": {
       "*": {
-        "labels": [{ "show": true, "fontSize": 10 }],
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
         "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
         "categoryAxis": [{
-          "show": true, "fontSize": 10,
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
         }],
@@ -118,15 +122,15 @@
     },
     "clusteredColumnChart": {
       "*": {
-        "labels": [{ "show": true, "fontSize": 10 }],
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
         "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
         "categoryAxis": [{
-          "show": true, "fontSize": 10,
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
         }],
         "dataPoint": [{ "borderShow": false }],
-        "legend": [{ "show": true, "fontSize": 9, "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
+        "legend": [{ "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}", "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
       }
     },
     "lineChart": {
@@ -137,16 +141,16 @@
         }],
         "dataPoint": [{ "transparency": 85 }],
         "labels": [{
-          "show": true, "labelPosition": "Above", "fontSize": 9,
+          "show": true, "labelPosition": "Above", "fontSize": 9, "fontFamily": "{{fontBody}}",
           "color": { "solid": { "color": "{{textSecondary}}" } }, "labelDensity": 25
         }],
         "categoryAxis": [{
-          "show": true, "fontSize": 10,
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "gridlineShow": false
         }],
         "valueAxis": [{
-          "show": true, "fontSize": 9,
+          "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}",
           "labelColor": { "solid": { "color": "{{axisLabel}}" } },
           "showAxisTitle": false, "gridlineStyle": "dotted",
           "gridlineColor": { "solid": { "color": "{{gridlineColorLight}}" } }

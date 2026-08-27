@@ -96,6 +96,7 @@
           {
             "autoSizeColumnWidth": true,
             "columnAdjustment": "growToFit",
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "backColor": {
               "solid": {
                 "color": "#F3F2F1"
@@ -111,6 +112,7 @@
         ],
         "values": [
           {
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "backColorPrimary": {
               "solid": {
                 "color": "#FFFFFF"
@@ -141,6 +143,7 @@
           {
             "autoSizeColumnWidth": true,
             "columnAdjustment": "growToFit",
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "backColor": {
               "solid": {
                 "color": "#F3F2F1"
@@ -156,6 +159,7 @@
         ],
         "values": [
           {
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "backColorPrimary": {
               "solid": {
                 "color": "#FFFFFF"
@@ -185,12 +189,14 @@
         "value": [
           {
             "bold": true,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "$id": "default"
           }
         ],
         "label": [
           {
             "show": true,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "$id": "default"
           }
         ],
@@ -258,7 +264,8 @@
         "labels": [
           {
             "show": true,
-            "fontSize": 10
+            "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif"
           }
         ],
         "valueAxis": [
@@ -272,6 +279,7 @@
           {
             "show": true,
             "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -299,7 +307,8 @@
         "labels": [
           {
             "show": true,
-            "fontSize": 10
+            "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif"
           }
         ],
         "valueAxis": [
@@ -313,6 +322,7 @@
           {
             "show": true,
             "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -332,6 +342,7 @@
           {
             "show": true,
             "fontSize": 9,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -346,7 +357,8 @@
         "labels": [
           {
             "show": true,
-            "fontSize": 10
+            "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif"
           }
         ],
         "valueAxis": [
@@ -360,6 +372,7 @@
           {
             "show": true,
             "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -387,7 +400,8 @@
         "labels": [
           {
             "show": true,
-            "fontSize": 10
+            "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif"
           }
         ],
         "valueAxis": [
@@ -401,6 +415,7 @@
           {
             "show": true,
             "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -420,6 +435,7 @@
           {
             "show": true,
             "fontSize": 9,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -450,6 +466,7 @@
             "show": true,
             "labelPosition": "Above",
             "fontSize": 9,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "color": {
               "solid": {
                 "color": "#252423"
@@ -462,6 +479,7 @@
           {
             "show": true,
             "fontSize": 10,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
@@ -475,6 +493,7 @@
           {
             "show": true,
             "fontSize": 9,
+            "fontFamily": "Arial, Segoe UI Variable, Segoe UI, sans-serif",
             "labelColor": {
               "solid": {
                 "color": "#605E5C"
