@@ -38,6 +38,7 @@ definition files in the **PBIR (Power BI Report)** format used by **PBIP
 - Validate PBIR with `powerbi-report-author validate` after each logical batch.
 - Use `powerbi-desktop` reload/screenshot workflows for rendered-output changes.
 - Use CLI capability lookup before writing visual roles, formatting objects, enum values, selectors, or expression encodings.
+- Set an explicit `title.text` on every chart/table — never leave it unset; Desktop's default title is a raw concatenation of the bound fields' real model names (see Anti-Patterns and Pitfalls).
 
 ### PREFER
 
@@ -434,6 +435,7 @@ patterns. It does not replace Desktop reload and screenshot review.
 | Enabling `logAxisScale` on data with zero or negative values | PBI Desktop silently falls back to linear scale with a warning — log of zero/negative is undefined | **Warn the user before applying.** Use `ask_user` to present alternatives (filter negatives, switch measure, use `labelDisplayUnits`). Apply `logAxisScale: true` only after the user resolves negative values or confirms all bound values are positive — see [cartesian.md § Log Scale](references/cartesian.md#log-scale-logaxisscale) |
 | Changing theme without sweeping inline overrides | Old colors remain on shapes, page backgrounds, nav buttons, textboxes — theme-only change has no effect on hardcoded `Literal` hex values at Priority 2 in the cascade | When the report has per-visual color overrides, follow [re-theming.md § Re-theming Workflow](references/re-theming.md#re-theming-an-existing-report) Steps 0–3: build a color mapping, update theme JSON, then bulk-sweep `definition/` files for old hex values before reload |
 | Changing only `dataColors` in theme without sweeping | Shapes, accent bars, nav button borders retain old accent colors — they use hardcoded Literal hex from the old `dataColors` array, not `ThemeDataColor` references | Sweep ALL old `dataColors[N]` hex values across `definition/` files. Even same-polarity "just change the accent/data colors" requests need the full sweep — shapes and nav elements commonly hardcode `dataColors[0]` as accent fills/outlines. |
+| Leaving VCO `title.text` unset on a chart/table | Desktop's default title is a raw concatenation of the bound fields' real model names (e.g. `m_Revenue by Country`) — any technical prefix or catalog-naming convention on the measure/column leaks straight onto the report | Always set an explicit, human-readable `title.text` on every visual — never rely on the auto-generated default. Note there is **no per-visual override** for axis tick labels, legend entries, or table/matrix column headers either — those always render the field's real model name (`nativeQueryRef` is a schema-locked technical identifier, not free display text; changing its required format silently breaks the visual). If those need to read cleanly, the measure/column must be renamed in the semantic model itself — this can't be patched from `powerbi-report-authoring` |
 
 ## Official Documentation
 
