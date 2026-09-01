@@ -15,16 +15,11 @@
       "description": "Complete bundle: all Microsoft Skills for Fabric for developers and consumers",
       "version": "0.3.13",
       "skills": [
-<<<<<<< HEAD
-        "./skills/check-updates",
-        "./skills/semantic-model-authoring",
-=======
         "./skills/fabriciq",
         "./skills/semantic-model-authoring",
         "./skills/spark-cli",
         "./skills/sqldw-cli",
         "./skills/eventhouse-cli",
->>>>>>> main
         "./skills/eventstream-cli",
         "./skills/eventschemaset-cli",
         "./skills/activator-cli",
