@@ -1,0 +1,179 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.153.json",
+  "name": "{{name}}",
+  "dataColors": {{dataColors}},
+  "good": "{{good}}",
+  "neutral": "{{neutral}}",
+  "bad": "{{bad}}",
+  "maximum": "{{maximum}}",
+  "center": "{{center}}",
+  "minimum": "{{minimum}}",
+  "null": "{{null}}",
+  "textClasses": {
+    "callout": { "fontSize": 28, "fontFace": "{{fontBody}}", "color": "{{textPrimary}}" },
+    "title": { "fontSize": 14, "fontFace": "{{fontBody}}", "color": "{{textPrimary}}" },
+    "header": { "fontSize": 12, "fontFace": "{{fontHeader}}", "fontWeight": "{{headerWeight}}", "color": "{{textPrimary}}" },
+    "label": { "fontSize": 10, "fontFace": "{{fontBody}}", "color": "{{textPrimary}}" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [{ "show": true, "color": { "solid": { "color": "{{borderColor}}" } }, "radius": {{borderRadius}} }],
+        "dropShadow": [{ "show": false }],
+        "padding": [{ "top": 8, "bottom": 8, "left": 8, "right": 8 }],
+        "categoryAxis": [{ "gridlineStyle": "dotted", "gridlineColor": { "solid": { "color": "{{gridlineColor}}" } } }],
+        "valueAxis": [{ "gridlineStyle": "dotted", "gridlineColor": { "solid": { "color": "{{gridlineColor}}" } } }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [{
+          "autoSizeColumnWidth": true,
+          "columnAdjustment": "growToFit",
+          "fontFamily": "{{fontBody}}",
+          "backColor": { "solid": { "color": "{{gridlineColor}}" } },
+          "fontColor": { "solid": { "color": "{{textSecondary}}" } },
+          "bold": true
+        }],
+        "values": [{
+          "fontFamily": "{{fontBody}}",
+          "backColorPrimary": { "solid": { "color": "{{surfaceBase}}" } },
+          "backColorSecondary": { "solid": { "color": "{{surfaceAlt}}" } },
+          "fontColorPrimary": { "solid": { "color": "{{textSecondary}}" } },
+          "fontColorSecondary": { "solid": { "color": "{{textSecondary}}" } }
+        }]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [{
+          "autoSizeColumnWidth": true,
+          "columnAdjustment": "growToFit",
+          "fontFamily": "{{fontBody}}",
+          "backColor": { "solid": { "color": "{{gridlineColor}}" } },
+          "fontColor": { "solid": { "color": "{{textSecondary}}" } },
+          "bold": true
+        }],
+        "values": [{
+          "fontFamily": "{{fontBody}}",
+          "backColorPrimary": { "solid": { "color": "{{surfaceBase}}" } },
+          "backColorSecondary": { "solid": { "color": "{{surfaceAlt}}" } },
+          "fontColorPrimary": { "solid": { "color": "{{textSecondary}}" } },
+          "fontColorSecondary": { "solid": { "color": "{{textSecondary}}" } }
+        }]
+      }
+    },
+    "cardVisual": {
+      "*": {
+        "value": [{ "bold": true, "fontFamily": "{{fontBody}}", "$id": "default" }],
+        "label": [{ "show": true, "fontFamily": "{{fontBody}}", "$id": "default" }],
+        "cardCalloutArea": [{ "paddingUniform": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "{{borderColor}}" } }, "radius": {{borderRadius}} }],
+        "title": [{ "show": false }],
+        "spacing": [{ "customizeSpacing": true, "verticalSpacing": -6 }],
+        "padding": [{ "top": 0, "bottom": 0, "left": 0, "right": 0 }]
+      }
+    },
+    "textbox": {
+      "*": {
+        "padding": [{ "top": 0, "bottom": 0, "left": 0, "right": 0 }],
+        "background": [{ "show": false }],
+        "border": [{ "show": false }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
+        "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
+        "categoryAxis": [{
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
+        }],
+        "dataPoint": [{ "borderShow": false }],
+        "legend": [{ "show": false }]
+      }
+    },
+    "clusteredBarChart": {
+      "*": {
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
+        "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
+        "categoryAxis": [{
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
+        }],
+        "dataPoint": [{ "borderShow": false }],
+        "legend": [{ "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}", "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
+        "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
+        "categoryAxis": [{
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
+        }],
+        "dataPoint": [{ "borderShow": false }],
+        "legend": [{ "show": false }]
+      }
+    },
+    "clusteredColumnChart": {
+      "*": {
+        "labels": [{ "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}" }],
+        "valueAxis": [{ "show": false, "gridlineShow": false, "showAxisTitle": false }],
+        "categoryAxis": [{
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "innerPadding": 20, "gridlineShow": false
+        }],
+        "dataPoint": [{ "borderShow": false }],
+        "legend": [{ "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}", "labelColor": { "solid": { "color": "{{axisLabel}}" } } }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "lineStyles": [{
+          "strokeWidth": 2.5, "lineChartType": "smooth",
+          "interpolationSmooth": "monotoneX", "areaShow": true, "areaMatchStrokeColor": true
+        }],
+        "dataPoint": [{ "transparency": 85 }],
+        "labels": [{
+          "show": true, "labelPosition": "Above", "fontSize": 9, "fontFamily": "{{fontBody}}",
+          "color": { "solid": { "color": "{{textSecondary}}" } }, "labelDensity": 25
+        }],
+        "categoryAxis": [{
+          "show": true, "fontSize": 10, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "gridlineShow": false
+        }],
+        "valueAxis": [{
+          "show": true, "fontSize": 9, "fontFamily": "{{fontBody}}",
+          "labelColor": { "solid": { "color": "{{axisLabel}}" } },
+          "showAxisTitle": false, "gridlineStyle": "dotted",
+          "gridlineColor": { "solid": { "color": "{{gridlineColorLight}}" } }
+        }],
+        "legend": [{ "show": false }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "header": [{
+          "fontFamily": "{{fontHeader}}", "textSize": 10,
+          "fontColor": { "solid": { "color": "{{textSecondary}}" } }, "outlineStyle": 0,
+          "bold": {{headerBold}}
+        }],
+        "items": [{
+          "fontFamily": "{{fontBody}}", "textSize": 9,
+          "fontColor": { "solid": { "color": "{{textSecondary}}" } }, "outlineStyle": 0, "padding": 2
+        }],
+        "date": [{
+          "fontFamily": "{{fontBody}}", "textSize": 9,
+          "fontColor": { "solid": { "color": "{{textSecondary}}" } }
+        }]
+      }
+    }
+  }
+}

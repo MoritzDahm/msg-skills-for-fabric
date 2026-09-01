@@ -14,6 +14,12 @@ metadata:
   version: 0.1.0
 ---
 
+> **Update Check — ONCE PER SESSION (mandatory)**
+> The first time this skill is used in a session, run the **check-updates** skill before proceeding.
+> - **GitHub Copilot CLI / VS Code**: invoke the `check-updates` skill.
+> - **Claude Code / Cowork / Cursor / Windsurf / Codex**: compare local vs remote package.json version.
+> - Skip if the check was already performed earlier in this session.
+
 > **CRITICAL NOTES**
 > 1. To find the workspace details (including its ID) from workspace name: list all workspaces and, then, use JMESPath filtering
 > 2. To find the item details (including its ID) from workspace ID, item type, and item name: list all items of that type in that workspace and, then, use JMESPath filtering
@@ -32,6 +38,7 @@ definition files in the **PBIR (Power BI Report)** format used by **PBIP
 - Validate PBIR with `powerbi-report-author validate` after each logical batch.
 - Use `powerbi-desktop` reload/screenshot workflows for rendered-output changes.
 - Use CLI capability lookup before writing visual roles, formatting objects, enum values, selectors, or expression encodings.
+- Set an explicit `title.text` on every chart/table — never leave it unset; Desktop's default title is a raw concatenation of the bound fields' real model names (see Anti-Patterns and Pitfalls).
 
 ### PREFER
 
@@ -269,17 +276,30 @@ dual-entry pattern in `references/formatting.md`.
 ## Edit → Validate → Reload → Screenshot Loop
 
 For rendered-output changes, follow this loop. Do not report completion until
-validation, reload, and screenshot review are clean.
+validation and screenshot review are clean.
+
+**Before step 3, check the platform.** Power BI Desktop is Windows-only. If
+the OS is not Windows (macOS, Linux), skip steps 3–5 entirely — do not run
+`powerbi-desktop status` first and react to the error afterward. Go directly
+to [`playwright-browser.md`](references/playwright-browser.md) for the
+publish/screenshot/review steps instead, then resume at step 6. This applies
+even mid-loop: if `status` unexpectedly returns `UNSUPPORTED_OS`, that is not
+a dead end to report to the user — it is the same signal, encountered late.
+Switch to `playwright-browser.md` and continue; do not fall back to asking
+the user to run the loop themselves on a different machine.
 
 ```text
-┌──────────────────────────────────────────────────────────┐
-│  1. Edit PBIR files                                      │
-│  2. Validate           → errors? fix and go to 1         │
-│  3. Desktop status     → choose the correct bridge PID   │
-│  4. Desktop reload     → error? fix PBIR and go to 1     │
-│  5. Screenshot/review  → issues? fix and go to 1         │
-│  6. Clean              → report completion               │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  1. Edit PBIR files                                              │
+│  2. Validate             → errors? fix and go to 1               │
+│  Windows + Desktop available?                                    │
+│    yes → 3. Desktop status  → choose the correct bridge PID      │
+│          4. Desktop reload  → error? fix PBIR and go to 1        │
+│          5. Screenshot/review → issues? fix and go to 1          │
+│    no  → 3'. playwright-browser.md (publish, screenshot, review) │
+│          → issues? fix and go to 1                               │
+│  6. Clean                → report completion                     │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 **Rules:**
@@ -287,9 +307,10 @@ validation, reload, and screenshot review are clean.
   report definition directory (e.g., `Sales.Report`), not the `.pbip` file or
   project root. Fix all errors before reload — invalid PBIR errors will surface
   in Desktop.
-- **Steps 3–5** — use `powerbi-desktop` CLI: `status` to choose the PID, then
-  `reload --pid <pid>` for PBIP/PBIR current files and screenshots from the
-  same PID. Then perform the screenshot review below.
+- **Steps 3–5 (Windows + Desktop available)** — use `powerbi-desktop` CLI:
+  `status` to choose the PID, then `reload --pid <pid>` for PBIP/PBIR current
+  files and screenshots from the same PID. Then perform the screenshot review
+  below.
   After `status`, if the selected instance has `hasUnsavedChanges: true`, do
   not reload yet; ask the user to save or discard their Desktop UI changes,
   rerun `status`, and continue only once it is false.
@@ -299,6 +320,15 @@ validation, reload, and screenshot review are clean.
     **Exception:** Theme JSON files are cache-keyed by name — Desktop may not
   pick up edits on reload. Either rename the theme file with a random suffix
   (and update `report.json`), or close and reopen Desktop.
+- **Step 3' (macOS/Linux, or Desktop unavailable/`UNSUPPORTED_OS`)** — do not
+  attempt `powerbi-desktop status` first, or if it already ran and returned
+  `UNSUPPORTED_OS`, do not treat that as a stopping point. Follow
+  [`playwright-browser.md`](references/playwright-browser.md) instead: publish
+  the current PBIR to the target Fabric workspace, resolve the report's
+  `webUrl`, screenshot each page with Playwright, then perform the same
+  screenshot review below. This path has no PID/reload concept — publish is
+  the equivalent of reload, since Fabric Service always renders whatever was
+  last published.
 
 **Desktop CLI commands:**
 
@@ -405,6 +435,7 @@ patterns. It does not replace Desktop reload and screenshot review.
 | Enabling `logAxisScale` on data with zero or negative values | PBI Desktop silently falls back to linear scale with a warning — log of zero/negative is undefined | **Warn the user before applying.** Use `ask_user` to present alternatives (filter negatives, switch measure, use `labelDisplayUnits`). Apply `logAxisScale: true` only after the user resolves negative values or confirms all bound values are positive — see [cartesian.md § Log Scale](references/cartesian.md#log-scale-logaxisscale) |
 | Changing theme without sweeping inline overrides | Old colors remain on shapes, page backgrounds, nav buttons, textboxes — theme-only change has no effect on hardcoded `Literal` hex values at Priority 2 in the cascade | When the report has per-visual color overrides, follow [re-theming.md § Re-theming Workflow](references/re-theming.md#re-theming-an-existing-report) Steps 0–3: build a color mapping, update theme JSON, then bulk-sweep `definition/` files for old hex values before reload |
 | Changing only `dataColors` in theme without sweeping | Shapes, accent bars, nav button borders retain old accent colors — they use hardcoded Literal hex from the old `dataColors` array, not `ThemeDataColor` references | Sweep ALL old `dataColors[N]` hex values across `definition/` files. Even same-polarity "just change the accent/data colors" requests need the full sweep — shapes and nav elements commonly hardcode `dataColors[0]` as accent fills/outlines. |
+| Leaving VCO `title.text` unset on a chart/table | Desktop's default title is a raw concatenation of the bound fields' real model names (e.g. `m_Revenue by Country`) — any technical prefix or catalog-naming convention on the measure/column leaks straight onto the report | Always set an explicit, human-readable `title.text` on every visual — never rely on the auto-generated default. Note there is **no per-visual override** for axis tick labels, legend entries, or table/matrix column headers either — those always render the field's real model name (`nativeQueryRef` is a schema-locked technical identifier, not free display text; changing its required format silently breaks the visual). If those need to read cleanly, the measure/column must be renamed in the semantic model itself — this can't be patched from `powerbi-report-authoring` |
 
 ## Official Documentation
 

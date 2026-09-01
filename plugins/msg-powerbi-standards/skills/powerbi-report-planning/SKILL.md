@@ -14,6 +14,12 @@ metadata:
   version: 0.1.0
 ---
 
+> **Update Check — ONCE PER SESSION (mandatory)**
+> The first time this skill is used in a session, run the **check-updates** skill before proceeding.
+> - **GitHub Copilot CLI / VS Code**: invoke the `check-updates` skill.
+> - **Claude Code / Cowork / Cursor / Windsurf / Codex**: compare local vs remote package.json version.
+> - Skip if the check was already performed earlier in this session.
+
 # Power BI Report Planning Skill
 
 This skill orchestrates the full lifecycle for a new Power BI report:
@@ -100,8 +106,6 @@ Before implementation, capture this status:
 | `powerbi-report-authoring` skill | Validate PBIR, reload Desktop, screenshot pages | Required for report authoring validation |
 | `powerbi-report-management` skill | Create/update/download Fabric reports | Required only for Fabric publishing |
 | Node.js | Generator-based PBIR authoring | Recommended for reproducible reports |
-| `company-powerbi-standards` skill | Corporate theme/color/layout rules | Required for msg-branded reports; takes priority over generic design defaults |
-| `powerbi-dashboard-architect` skill | Measure-naming and governance constraints | Required whenever invoked under msg governance scope |
 
 If a dependency is unavailable, continue planning and mark the affected phase as
 blocked/manual. Do not pretend it is available.
@@ -178,11 +182,29 @@ Recommended choices:
 5. Explore individual records/profiles
 6. Prepare for a recurring business review
 
+For executive, external, or narrative-leaning audiences, also ask — unless
+the prompt already makes it obvious — what decision or action the report
+should drive. Usage-mode answers above ("track performance") describe how
+the report gets read; this question pins down what happens *after* it's
+read. Skip it for purely exploratory/analyst or operational-monitoring
+audiences — those reports support ongoing investigation, not a single
+decision.
+
+> What decision or action should this report help someone make?
+
+Recommended choices:
+
+1. Approve or reject a specific budget/resourcing decision
+2. Flag entities or segments that need intervention
+3. Confirm status before a recurring review — no action beyond awareness
+4. Compare options to choose a path forward
+
 Capture:
 
 ```markdown
 Audience:
 Primary purpose:
+Decision/action to enable: <or "awareness only" if genuinely no decision is being driven>
 Tone:
 Success criteria:
 ```
@@ -260,7 +282,12 @@ Goal: turn the model and scope into page architecture.
 Invoke or explicitly consult `powerbi-report-design` for page-level archetype
 routing and composition guidance. The design skill owns visual routing; do not
 duplicate its routing table here. Use the data shape from Round 2 to surface
-2-3 report shape options for user sign-off.
+2-3 report shape options for user sign-off. Pass the captured `Decision/action
+to enable` and draft `Core story` to the design skill so it can draft page
+titles that build toward that story (the vertical-logic check in
+`archetype-composition.md`) and set `recommended_action` on Executive
+Summary / Narrative Story pages — do not let the design skill invent a
+competing decision or story on its own.
 
 The five archetypes the design skill ships are: **Executive Summary**,
 **Operational Monitor**, **Analytical Canvas**, **Narrative Story**,
@@ -359,6 +386,9 @@ The canonical design block must include:
 - no bare single-value `cardVisual` occupying the largest/dominant hero region
   unless the design marks it as a composite KPI treatment with context and
   rationale
+- Executive Summary and Narrative Story pages carry a page-level
+  `recommended_action` (or explicit `awareness_only: true`) tied to the
+  captured decision/action — not just an insight
 - no unresolved placeholders, ellipses, or prose-only wireframes
 
 If the block is missing these items, stop and revise the design contract before
@@ -402,6 +432,7 @@ sign-off granularity; the embedded YAML captures exact implementation intent.
 - Semantic model:
 - Audience:
 - Primary purpose:
+- Decision/action to enable: <or "awareness only">
 - Delivery target:
 
 ## User decisions and constraints
@@ -416,7 +447,7 @@ sign-off granularity; the embedded YAML captures exact implementation intent.
 - Data caveats:
 
 ## Narrative
-- Core story:
+- Core story: <one sentence, complete thought — the Big Idea every page title should build toward>
 - Audience promise:
 - Key questions answered:
 
@@ -484,6 +515,12 @@ following. If any check fails, fix `report-spec.md` and the embedded
   data visual starts under a slicer/header-band region.
 - No bare single-value `cardVisual` is the largest/dominant hero region unless
   the YAML explicitly describes a composite KPI treatment with context.
+- Executive Summary and Narrative Story pages have `recommended_action` (or
+  `awareness_only: true`) set, and it traces back to the `Decision/action to
+  enable` captured in Round 1 — not a restated finding.
+- Page titles across the report, read in sequence, build toward the `Core
+  story` (the design skill's vertical-logic check) rather than reading as
+  unrelated facts.
 - The approved YAML has no ellipses (`...`), unresolved placeholders, or
   pages/visuals promised in Markdown but omitted from the YAML.
 
