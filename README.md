@@ -13,11 +13,14 @@ and compatible AI coding tools work with Microsoft Fabric.
 >
 > **What msg added:** this fork narrows the root-level `skills/` folder to
 > the Power BI workflow (report planning, design, authoring, management, and
-> semantic models) and adds msg's own corporate design-standards skill —
-> `company-powerbi-standards` — plus a customizable, customer-distributable
-> version of it (`plugins/msg-powerbi-standards`). Everything else from
-> upstream still ships inside `plugins/` for anyone who wants the full
-> multi-workload bundle.
+> semantic models) and adds msg's own governance skill — `powerbi-governance`
+> — covering change-control (CR tracking, a local change ledger) and
+> measure-naming/approval-gate rules, plus a customizable,
+> customer-distributable version of the whole set
+> (`plugins/msg-powerbi-standards`). Corporate color/theme/layout authority
+> stays inside `powerbi-report-design` itself. Everything else from upstream
+> still ships inside `plugins/` for anyone who wants the full multi-workload
+> bundle.
 
 ## Repository structure
 
@@ -25,6 +28,7 @@ and compatible AI coding tools work with Microsoft Fabric.
 skills/                          # Root-level skills — auto-loaded when this repo is
                                   # cloned/opened directly (see CLAUDE.md, AGENTS.md, etc.)
   check-updates/                 # Shared update-check skill used by the others
+  powerbi-governance/            # CR tracking, change ledger, measure-naming + approval-gate rules
   semantic-model-authoring/      # DAX, TMDL, semantic model authoring
   powerbi-report-planning/       # Guided requirements -> build workflow
   powerbi-report-design/         # Visual design guidance (tone, archetype, layout, color)
@@ -49,21 +53,24 @@ GEMINI.md
 
 The distinction that matters: **`skills/`** is what you get for free the
 moment you clone this repo into a project — it is deliberately scoped to
-Power BI plus the msg standards skill. **`plugins/`** is what you install
+Power BI plus msg's governance skill. **`plugins/`** is what you install
 through a plugin marketplace, and still mirrors Microsoft's full catalog
 alongside msg's addition.
 
 ## Using this repo directly
 
 If you clone this repository (or copy `skills/` into your own project), the
-Power BI skillset and msg's corporate standards are picked up automatically
-by any tool that reads `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex / Jules /
-OpenCode), `.cursorrules` (Cursor), `.windsurfrules` (Windsurf), or
-`GEMINI.md` (Gemini CLI) — no install step required. Just open the project
-and ask for a Power BI task:
+Power BI skillset is picked up automatically by any tool that reads
+`CLAUDE.md` (Claude Code), `AGENTS.md` (Codex / Jules / OpenCode),
+`.cursorrules` (Cursor), `.windsurfrules` (Windsurf), or `GEMINI.md` (Gemini
+CLI) — no install step required. `powerbi-governance`'s change-control and
+measure-naming rules apply automatically wherever `powerbi-report-planning`,
+`powerbi-report-design`, `semantic-model-authoring`, or
+`powerbi-report-management` invoke it — it has no triggers of its own. Just
+open the project and ask for a Power BI task:
 
 ```text
-Build me an executive dashboard from this semantic model, using our corporate design standards.
+Build me an executive dashboard from this semantic model.
 ```
 
 ## Installing via plugin marketplace (GitHub Copilot CLI)
@@ -126,25 +133,30 @@ days per installation; an explicit check bypasses that cache.
 /powerbi-authoring:check-updates
 ```
 
-## msg Power BI Standards
+## msg Power BI Governance
 
-`company-powerbi-standards` is the skill that makes every Power BI report
-generated in this repo follow msg's brand — colors, fonts, theme selection,
-layout density, KPI color coding, and delivery format. `powerbi-report-design`
-and `powerbi-dashboard-architect` look for a skill with exactly this name and
-treat it as the top-priority design authority whenever it's installed;
-without it, they fall back to generic design defaults.
+`powerbi-governance` is the skill that gives every Power BI change made in
+this repo a DevOps-style paper trail: it resolves a change-request (CR)
+reference for each change (from an external ticket, a chat ask, or an
+implicit revision of already-approved work), reads a local
+`./_governance/change-log.md` ledger for prior history on the target
+workspace/model/report before new work starts — proactively surfacing
+anything previously reverted or blocked — and enforces msg's measure-naming
+(`m_` prefix) and approval-gate rules. `powerbi-report-planning`,
+`powerbi-report-design`, `semantic-model-authoring`, and
+`powerbi-report-management` invoke it deterministically at specific steps;
+it has no build/design/publish triggers of its own, so it never competes
+with those skills for the same request. Corporate color/theme/layout
+authority is **not** part of this skill — that stays entirely inside
+`powerbi-report-design`.
 
-- **msg's own use** — already active. It lives at `skills/company-powerbi-standards/`
+- **msg's own use** — already active. It lives at `skills/powerbi-governance/`
   and is picked up automatically by this repo (see "Using this repo directly"
-  above). Its brand values live in `tokens.json`, not scattered across prose —
-  see `skills/company-powerbi-standards/references/contract.md` if you're
-  changing it.
+  above). See `skills/powerbi-governance/references/ledger-schema.md` and
+  `references/cr-intake.md` for the exact ledger format and CR-intake logic.
 - **Customers / other organizations** — use `plugins/msg-powerbi-standards/`
-  instead. It ships a blank, brand-neutral template (`skills/company-powerbi-standards/`
-  inside the plugin) plus msg's own filled-in version as a drop-in reference
-  (`examples/msg/`). See that plugin's `README.md` for the exact customization
-  steps.
+  instead, which bundles `powerbi-governance` alongside the rest of the
+  Power BI authoring skills.
 
   It's already set up as its **own marketplace**, separate from Microsoft's —
   `msg-collection`, not `fabric-collection` — so installing it never implies
@@ -159,7 +171,7 @@ without it, they fall back to generic design defaults.
   own repository (its manifests are self-contained and need no path changes
   to do so) — the `repository` field in its `plugin.json`/`marketplace.json`
   is still a placeholder pending that decision. Until then, install it
-  manually: copy `plugins/msg-powerbi-standards/skills/company-powerbi-standards/`
+  manually: copy `plugins/msg-powerbi-standards/skills/powerbi-governance/`
   into your project's skills folder alongside Microsoft's `powerbi-authoring`
   bundle.
 
@@ -172,7 +184,7 @@ without it, they fall back to generic design defaults.
 | `fabric-consumption` | Read-only exploration and query workflows across Warehouses, Lakehouses, Power BI semantic models, Eventhouse/KQL databases, Eventstreams, Dataflows Gen2, and catalog search. |
 | `fabric-operations` | Performance and health diagnostics, including warehouse query insights and slow-query investigation. |
 | `powerbi-authoring` | Authoring Power BI semantic models, reports, and PBIP workflows, including report planning, design, authoring, and management. |
-| `msg-powerbi-standards` | msg's corporate Power BI design-standards skill — a customizable template plus msg's own worked example. |
+| `msg-powerbi-standards` | msg's Power BI toolkit: the upstream authoring skills plus `powerbi-governance` for change-control (CR tracking, change ledger) and measure-naming rules. |
 
 See [CHANGELOG.md](CHANGELOG.md) for upstream release notes.
 
@@ -220,7 +232,7 @@ Gemini CLI also auto-discovers [GEMINI.md](GEMINI.md) when the repo is cloned.
 
 For issues with the upstream Fabric skills, use Microsoft's
 [GitHub issue tracker](https://github.com/microsoft/skills-for-fabric/issues).
-For issues with msg's additions (`company-powerbi-standards`,
+For issues with msg's additions (`powerbi-governance`,
 `msg-powerbi-standards`), open an issue against this fork.
 
 For security vulnerabilities, do not open a public issue. See

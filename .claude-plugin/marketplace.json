@@ -371,9 +371,10 @@
       "name": "msg-powerbi-standards",
       "source": "./plugins/msg-powerbi-standards",
       "description": "Built by msg: a complete, self-sufficient Power BI toolkit for Microsoft's skills-for-fabric",
-      "version": "0.3.11",
+      "version": "0.4.0",
       "skills": [
         "./skills/check-updates",
+        "./skills/powerbi-governance",
         "./skills/semantic-model-authoring",
         "./skills/powerbi-report-planning",
         "./skills/powerbi-report-design",

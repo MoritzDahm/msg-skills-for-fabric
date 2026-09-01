@@ -31,6 +31,7 @@ the report spec **and** continues into implementation after the user approves.
 - Ask focused clarification questions one at a time and stop after the required decision is clear.
 - Lock `_brief/report-spec.md` and get approval before implementation.
 - Route design decisions through `powerbi-report-design` and file mechanics through `powerbi-report-authoring`.
+- Invoke `powerbi-governance` at Round 0 to read prior change history for the target workspace/model and resolve a CR reference for this session's work.
 
 ### PREFER
 
@@ -100,8 +101,7 @@ Before implementation, capture this status:
 | `powerbi-report-authoring` skill | Validate PBIR, reload Desktop, screenshot pages | Required for report authoring validation |
 | `powerbi-report-management` skill | Create/update/download Fabric reports | Required only for Fabric publishing |
 | Node.js | Generator-based PBIR authoring | Recommended for reproducible reports |
-| `company-powerbi-standards` skill | Corporate theme/color/layout rules | Required for msg-branded reports; takes priority over generic design defaults |
-| `powerbi-dashboard-architect` skill | Measure-naming and governance constraints | Required whenever invoked under msg governance scope |
+| `powerbi-governance` skill | CR intake, prior-change history read-back, measure-naming and approval-gate rules | Required whenever invoked under msg governance scope |
 
 If a dependency is unavailable, continue planning and mark the affected phase as
 blocked/manual. Do not pretend it is available.
@@ -111,6 +111,11 @@ blocked/manual. Do not pretend it is available.
 ### Round 0 — Setup and Dependency Check
 
 Goal: identify the semantic model, report target, and available tooling.
+
+Invoke `powerbi-governance` first — it reads `./_governance/change-log.md`
+for this workspace/model, surfaces any relevant prior history (especially
+reverted or blocked items), and resolves this session's CR reference before
+any planning questions are asked.
 
 Ask only what cannot be inspected automatically:
 
@@ -205,6 +210,10 @@ applies, in order of preference:
 
 Do not hardcode tool names in user-facing prompts — describe the inspection
 intent and let the agent pick the available tool.
+
+Route measure-quality findings (naming, reusability, gaps) through
+`powerbi-governance`'s measure-naming and assessment rules before presenting
+them to the user — do not present a competing naming convention here.
 
 Summarize:
 
@@ -517,7 +526,9 @@ When the user approves, execute this sequence:
 3. Connect to the semantic model.
 4. Create/update required measures and calculated columns using whichever
    model-authoring path is available — a semantic-model authoring skill, a modeling
-   MCP server, or direct TMDL edits — in that order of preference.
+   MCP server, or direct TMDL edits — in that order of preference. Apply
+   `powerbi-governance`'s measure-naming, time-intelligence-prerequisite, and
+   approval-gate rules before any measure is created or modified.
 5. Validate each model change with DAX where possible.
 6. After calculated-column or measure changes, trigger the lightweight
    recalculation supported by the chosen tool (e.g., XMLA refresh with
@@ -535,6 +546,8 @@ When the user approves, execute this sequence:
 14. Screenshot pages.
 15. Fix visual, slicer, data-binding, accessibility, and layout issues.
 16. Publish only if the approved delivery target includes publishing.
+17. Invoke `powerbi-governance` to append a ledger entry recording the CR
+    id, items changed, skills executed, and status.
 
 ## Fabric Publish Rules
 

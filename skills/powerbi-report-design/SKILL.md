@@ -25,8 +25,8 @@ This skill provides design guidance for Power BI reports. It commits a design id
 ### MUST
 
 - Inspect the semantic model or available fields before making design decisions.
-- Resolve theme and layout constraints via `company-powerbi-standards` before Step 5 (Theme); it takes priority over generic design defaults.
 - Produce concrete design choices: tone, signature, page archetype, chart rationale, layout direction, color, typography, and accessibility considerations.
+- If this design change is part of a governed change (an existing CR, or a revision to an already-approved design), invoke `powerbi-governance` to confirm/resolve the CR reference so the eventual ledger entry captures it — this skill still owns all theme/color/layout decisions itself.
 - Hand off file mechanics to `powerbi-report-authoring`; this skill does not edit PBIR.
 
 ### PREFER
