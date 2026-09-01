@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "powerbi-authoring",
+  "name": "msg-powerbi-standards",
   "description": "Developed by msg: Adding powerbi knowledge to your AI agent",
   "version": "0.3.11",
   "license": "MIT",
