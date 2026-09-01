@@ -2,6 +2,33 @@
 
 User-facing changes for the public Microsoft Fabric Skills release.
 
+## [0.3.14] - 2026-08-26
+
+
+### Added
+- **`databricks-migration`** -- added a guided four-phase workflow for inventorying, preparing, migrating, validating, and cutting over Databricks workloads to Fabric.
+- **`databricks-migration`** -- added post-migration checks for environments, schemas, row counts, notebook and job execution, output comparison, and validation reporting.
+- **`databricks-migration`** -- added troubleshooting guidance for common migration issues involving DLT, namespaces, widgets, Photon, DBFS, streaming, init scripts, and Git integration.
+
+### Changed
+- **Skill descriptions rewritten so the assistant picks the right one more often.** Every skill now states plainly what it owns, what it can do, when to choose it, and which neighbouring skill owns the work next door. Previously several skills described their area only in general terms, so a request that sat between two of them could reach the wrong skill -- or none at all, with the assistant answering from general knowledge instead. Requests that name a specific Fabric item or operation now land on the skill that owns it.
+
+- **The full skill catalog fits comfortably within what the assistant reads at startup.** Only each skill's name and description are loaded up front, and that space is limited. The catalog previously ran close enough to the limit that adding skills risked pushing later ones past it -- and a skill past the limit is known only by its name, so the assistant can no longer tell what it does and chooses between skills on the name alone. The descriptions are now about 40% shorter with no loss of routing accuracy, leaving room for the catalog to grow.
+- **`databricks-migration`** -- expanded migration planning with Blocker, Warning, and Info severity levels, accurate Scala and SparkR compatibility guidance, schema-enabled Lakehouse mapping, and structured failure reporting.
+- **`semantic-model-authoring`** -- enable the `fabric-skills` bundle to use the hosted Power BI modeling service for semantic model authoring, while the `powerbi-authoring` bundle continues to support the local modeling server.
+
+### Fixed
+- **Seven skills regained the exact words people type.** The description rewrite favoured readable prose and, in doing so, dropped the literal tokens a request actually matches on: `MLV` and `OOM` (`spark-cli`), `count rows` and `SELECT` (`sqldw-cli`), `dacpac` and `sys.tables` (`sqldb-cli`), `executeQuery` and `saveAsNativeArtifact` (`dataflows-cli`), `libraryVariables` and `notebookutils` (`variable-library-cli`), and the `Gen1`/`Gen2` "not supported" caveat (`search-consumption-cli`). `git-integration-operations-cli` also lost its exclusions, so a question about `fabric-cicd` or branch switching could be captured by a skill that cannot help -- worse than a miss, because the answer sounds confident. Prose reads better to a reviewer; literals are what match a user's words. All seven are back, every description still inside the 450-character cap, for 361 characters against roughly 3,850 of bundle headroom.
+
+- **`variable-library-cli`'s description was not a grammatical sentence.** "…and valueSets overrides, which consumers can reference a variable and with what syntax across pipelines…" -- a malformed clause in the one field the router reads. Rewritten, and `libraryVariables` and `notebookutils variableLibrary` restored with it.
+
+- **`activator-cli`, `sqldw-cli` and `variable-library-cli`** -- these skills pointed you at skills that no longer exist. Their guidance still referred to `eventstream-authoring-cli`, `eventhouse-consumption-cli`, `spark-authoring-cli` and the separate `sqldb-authoring-cli` / `sqldb-consumption-cli` / `sqldb-operations-cli` skills, all of which were merged into single per-item skills in earlier releases. Handing work to a name that is not installed left the request stranded. They now name the current skills: `eventstream-cli`, `eventhouse-cli`, `spark-cli` and `sqldb-cli`.
+
+- **`sqldb-cli`** -- "run a query against my Fabric SQL database" reached the Warehouse skill instead. `sqldb-cli` presented itself as a design-and-troubleshoot skill and never claimed plain querying, so the Warehouse skill won on the word "query". It now leads with querying a SQL database item, so the request reaches the right engine.
+
+- **Git integration, deployment pipelines, Spark, Variable Library and Fabric IQ** -- several common requests reached the wrong skill or none at all: disconnecting a workspace from Git, asking which permissions or roles a deployment-pipeline stage needs, creating a materialized lake view, asking what a Variable Library value resolves to for a given release, and querying Fabric IQ directly. Each of these now names the case explicitly, so the request reaches the skill that handles it.
+- **`databricks-migration`** -- corrected Databricks inventory commands, schema-enabled Lakehouse creation, Maven and JAR library handling, Environment definition paths, notebook export, Spark Job Definition deployment, job execution URLs, Spark version validation, and cancelled-versus-timed-out run handling.
+
 ## [0.3.13] - 2026-08-20
 
 
