@@ -7,14 +7,15 @@ YAML/JSON parser or query language required.
 
 ## Location
 
-`./_governance/change-log.md`, relative to the project's current working
-directory (sibling to `powerbi-report-planning`'s `./_brief/report-spec.md`).
-This lives in the customer's project — never inside this skill's own folder.
+The path and template are configured in [../settings.md](../settings.md) →
+Ledger — ships as `./_governance/change-log.md`, relative to the project's
+current working directory (sibling to `powerbi-report-planning`'s
+`./_brief/report-spec.md`). This lives in the customer's project — never
+inside this skill's own folder.
 
 If the file doesn't exist yet, that means "no governed history for this
-project" — do not treat it as an error. Create it from
-[`../assets/change-log-template.md`](../assets/change-log-template.md) the
-first time an entry needs to be written.
+project" — do not treat it as an error. Create it from the template named
+in `settings.md` → Ledger the first time an entry needs to be written.
 
 ## Read algorithm
 
@@ -35,7 +36,9 @@ a fixed-order bullet list immediately under the header. Never delete an
 entry; a later change to the same item gets its own new entry, and the
 older entry may be updated only to point at the newer one via `Notes`.
 
-Fields, always in this order:
+The field order comes from [../settings.md](../settings.md) → Ledger Entry
+Fields. Ships as (append any org-specific fields from that section's
+"Additional" list after `Notes`):
 
 | Field | Values | Notes |
 |---|---|---|
@@ -50,6 +53,11 @@ Fields, always in this order:
 | `Notes` | free text | the "why" — reasons, caveats, cross-references to related CRs. This is the field that gets read back to the user later. |
 
 ## Example entries
+
+These use the shipped defaults from `settings.md` (`CR-{YYYYMMDD}-{NN}`,
+`m_` prefix). If you've customized `settings.md`, your entries will use
+your own format/prefix instead — the schema (field order, headers) doesn't
+change.
 
 ```markdown
 ## CR-20260901-01 — 2026-09-01

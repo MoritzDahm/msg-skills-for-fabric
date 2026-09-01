@@ -138,22 +138,26 @@ days per installation; an explicit check bypasses that cache.
 `powerbi-governance` is the skill that gives every Power BI change made in
 this repo a DevOps-style paper trail: it resolves a change-request (CR)
 reference for each change (from an external ticket, a chat ask, or an
-implicit revision of already-approved work), reads a local
-`./_governance/change-log.md` ledger for prior history on the target
-workspace/model/report before new work starts — proactively surfacing
-anything previously reverted or blocked — and enforces msg's measure-naming
-(`m_` prefix) and approval-gate rules. `powerbi-report-planning`,
-`powerbi-report-design`, `semantic-model-authoring`, and
-`powerbi-report-management` invoke it deterministically at specific steps;
-it has no build/design/publish triggers of its own, so it never competes
-with those skills for the same request. Corporate color/theme/layout
+implicit revision of already-approved work), reads a local change-log
+ledger for prior history on the target workspace/model/report before new
+work starts — proactively surfacing anything previously reverted or
+blocked — and enforces msg's measure-naming and approval-gate rules.
+All of that is configurable in one place — `skills/powerbi-governance/settings.md`
+— including the ledger path, the CR id format, and the measure-naming
+prefix (`m_` by default); nothing else needs editing to change them.
+`powerbi-report-planning`, `powerbi-report-design`,
+`semantic-model-authoring`, and `powerbi-report-management` invoke it
+deterministically at specific steps; it has no build/design/publish
+triggers of its own, so it never competes with those skills for the same
+request. Corporate color/theme/layout
 authority is **not** part of this skill — that stays entirely inside
 `powerbi-report-design`.
 
 - **msg's own use** — already active. It lives at `skills/powerbi-governance/`
   and is picked up automatically by this repo (see "Using this repo directly"
-  above). See `skills/powerbi-governance/references/ledger-schema.md` and
-  `references/cr-intake.md` for the exact ledger format and CR-intake logic.
+  above). To customize it, edit `skills/powerbi-governance/settings.md` —
+  see `references/ledger-schema.md` and `references/cr-intake.md` for the
+  exact ledger format and CR-intake logic those settings feed into.
 - **Customers / other organizations** — use `plugins/msg-powerbi-standards/`
   instead, which bundles `powerbi-governance` alongside the rest of the
   Power BI authoring skills.

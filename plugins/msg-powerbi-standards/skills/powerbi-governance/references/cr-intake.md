@@ -2,20 +2,19 @@
 
 ## 1. Classify the request
 
-- **External** — the user supplies an ADO work item number, a GitHub issue
-  URL, or some other ticket reference in the prompt. Use it verbatim as the
-  CR reference (e.g. `CR-118` for ADO work item #118, or the literal issue
-  URL if there's no short id). Do not generate a new id in this case.
+- **External** — the user supplies a ticket reference matching one of the
+  patterns in [../settings.md](../settings.md) → Change-Request (CR)
+  Reference → "Recognized external ticket references" (ships as ADO work
+  items and GitHub issue URLs). Use it verbatim as the CR reference (e.g.
+  `CR-118` for ADO work item #118, or the literal issue URL if there's no
+  short id). Do not generate a new id in this case.
 - **Explicit, no external ticket** — the user asks for a change in chat with
-  no ticket mentioned. Generate a CR reference:
-
-  ```
-  CR-YYYYMMDD-NN
-  ```
-
-  `YYYYMMDD` is today's date; `NN` is a two-digit sequence number. Read the
-  ledger first (Step 2 of the main workflow) and pick the next unused `NN`
-  for today's date so ids never collide within the same day.
+  no ticket mentioned. Generate a CR reference using the format in
+  `settings.md` → Change-Request (CR) Reference (ships as
+  `CR-{YYYYMMDD}-{NN}`, with `{YYYYMMDD}` as today's date and `{NN}` as a
+  two-digit sequence number). Read the ledger first (Step 3 of the main
+  workflow) and pick the next unused `{NN}` for today's date so ids never
+  collide within the same day.
 
 - **Implicit (revision of prior work)** — the user asks to modify something
   the ledger already shows as `Applied`, or asks to re-edit an already
@@ -60,7 +59,7 @@ answered.
 Return the resolved CR reference (and, for measure changes, the
 naming/approval-gate findings from the main SKILL.md) to whichever skill
 invoked this one, so it threads through the rest of that skill's own
-workflow and, eventually, into the ledger entry (Workflow step 6 in
+workflow and, eventually, into the ledger entry (Workflow step 7 in
 [../SKILL.md](../SKILL.md)).
 
 Optionally, if `git-integration-operations-cli` is being used to commit the
