@@ -37,7 +37,7 @@ the report spec **and** continues into implementation after the user approves.
 - Ask focused clarification questions one at a time and stop after the required decision is clear.
 - Lock `_brief/report-spec.md` and get approval before implementation.
 - Route design decisions through `powerbi-report-design` and file mechanics through `powerbi-report-authoring`.
-- Invoke `powerbi-governance` at Round 0 to read prior change history for the target workspace/model and resolve a CR reference for this session's work.
+- Invoke `powerbi-governance` at Round 0 to read prior change history for the target workspace/model and resolve a CR reference for this session's work. If governance is unavailable, mark the workflow blocked and ask the user to enable/fix governance before continuing.
 
 ### PREFER
 
@@ -107,10 +107,12 @@ Before implementation, capture this status:
 | `powerbi-report-authoring` skill | Validate PBIR, reload Desktop, screenshot pages | Required for report authoring validation |
 | `powerbi-report-management` skill | Create/update/download Fabric reports | Required only for Fabric publishing |
 | Node.js | Generator-based PBIR authoring | Recommended for reproducible reports |
-| `powerbi-governance` skill | CR intake, prior-change history read-back, measure-naming and approval-gate rules | Required whenever invoked under msg governance scope |
+| `powerbi-governance` skill | CR intake, prior-change history read-back, measure-naming and approval-gate rules | Required for all msg-governed planning and implementation flows |
 
 If a dependency is unavailable, continue planning and mark the affected phase as
-blocked/manual. Do not pretend it is available.
+blocked/manual. Do not pretend it is available. Exception: if
+`powerbi-governance` is unavailable in msg governance scope, stop and ask the
+user to enable/fix governance before continuing.
 
 ## Round Structure
 
@@ -586,7 +588,9 @@ When the user approves, execute this sequence:
 15. Fix visual, slicer, data-binding, accessibility, and layout issues.
 16. Publish only if the approved delivery target includes publishing.
 17. Invoke `powerbi-governance` to append a ledger entry recording the CR
-    id, items changed, skills executed, and status.
+    id, items changed, skills executed, and status. If this post-change log
+    step cannot run, mark the workflow blocked and ask the user how to
+    proceed.
 
 ## Fabric Publish Rules
 
