@@ -1,11 +1,6 @@
 ---
 name: semantic-model-authoring
-description: >  
-  Author and inspect Power BI semantic models and their metadata: list tables, columns, measures, relationships; create, edit, deploy, refresh, and manage models; optimize DAX; build Import, DirectQuery, and Direct Lake models; configure data sources, permissions, connections; and prepare for AI/Copilot.
-  Load this skill before acting on any semantic model authoring, metadata, or read-only inspection request: it picks the correct tool and method for the environment and permissions.
-  Authoring-scoped: does not answer natural-language or data questions about a model's data.
-  Does NOT author report visuals, manage workspaces, or manage RLS/OLS roles.
-  Triggers: "create or edit a semantic model", "create or edit a DAX measure", "discover semantic model metadata", "list tables, columns, or measures in a semantic model", "refresh semantic model", "deploy semantic model to Fabric",  "prepare semantic model for AI/Copilot", "set semantic model permissions".
+description: "Manages Power BI semantic models, including tables, columns, measures, relationships, DAX authoring and tuning, Import, DirectQuery and Direct Lake designs, sources, connections, permissions, refresh, and deployment. Load this skill before acting on a semantic model, unless it is part of publishing a PBIP project, which powerbi-report-management owns. For natural-language data questions use fabriciq; for visuals use powerbi-report-authoring."
 ---
 
 > **Telemetry — MANDATORY.** Every `api.fabric.microsoft.com` call must carry
@@ -161,12 +156,14 @@ Steps:
 
 1. **Connect & discover** - per [Connecting to a Semantic Model](#connecting-to-a-semantic-model) and [Discover Semantic Model Metadata](#workflow-discover-semantic-model-metadata). List tables, relationships, existing measures, and identify storage mode (it dictates which guidelines apply).
 2. **Load applicable guidelines** - [modeling-guidelines.md](./references/modeling-guidelines.md) always; [direct-lake-guidelines.md](./references/direct-lake-guidelines.md) if Direct Lake; [tmdl-guidelines.md](./references/tmdl-guidelines.md) when editing TMDL directly; [dax-guidelines.md](./references/dax-guidelines.md) for any DAX changes (includes UDF refactoring).
-3. **Plan changes** - identify exactly what to add, modify, or remove. Check for naming conflicts and duplicates.
-4. **Execute** in correct order:
+3. **Governance check** - if a `powerbi-governance` skill is available, invoke it to read prior ledger history for this model, resolve/confirm a CR reference for this change (explicit ask, or implicit if modifying something already `Applied` in the ledger), and apply its configured measure-naming convention (see its `settings.md`) and time-intelligence-prerequisite rules to anything being added — this takes priority over this skill's own [naming-conventions.md](./references/naming-conventions.md) measure-naming guidance when it applies.
+4. **Plan changes** - identify exactly what to add, modify, or remove. Check for naming conflicts and duplicates.
+5. **Execute** in correct order:
    - **Adding tables** - partitions -> columns -> relationships -> measures.
    - **Adding relationships** - ensure key columns exist on both sides with matching data types;
    - **Adding measures** - verify referenced columns/tables exist;
-5. **Save & validate** - per [Saving Changes to a Semantic Model](#saving-changes-to-a-semantic-model) and [Validation Checklist](#validation-checklist).
+6. **Save & validate** - per [Saving Changes to a Semantic Model](#saving-changes-to-a-semantic-model) and [Validation Checklist](#validation-checklist).
+7. **Report back** - if this workflow was invoked by another skill (e.g. `powerbi-report-planning`), report the applied change back to it; otherwise, if `powerbi-governance` was invoked in step 3, report the outcome to it directly so a ledger entry gets appended.
 
 ---
 
@@ -192,7 +189,7 @@ Steps:
 
 1. **Connect & inventory** - per [Connecting to a Semantic Model](#connecting-to-a-semantic-model) and [Discover Semantic Model Metadata](#workflow-discover-semantic-model-metadata). Capture all tables, columns, relationships, measures, and storage mode.
 2. **Load applicable guidelines** - [modeling-guidelines.md](./references/modeling-guidelines.md) always; [direct-lake-guidelines.md](./references/direct-lake-guidelines.md) if Direct Lake; [naming-conventions.md](./references/naming-conventions.md) when assessing naming; [dax-guidelines.md](./references/dax-guidelines.md) when assessing DAX.
-3. **Evaluate** - compare the model against the loaded guidelines (star schema, naming, relationship cardinality and cross-filter, explicit measures with `formatString`, column data types and `sourceColumn`, hidden FK columns, calculated-column-vs-measure choices, Direct Lake constraints, etc.).
+3. **Evaluate** - compare the model against the loaded guidelines (star schema, naming, relationship cardinality and cross-filter, explicit measures with `formatString`, column data types and `sourceColumn`, hidden FK columns, calculated-column-vs-measure choices, Direct Lake constraints, etc.). Check measure-naming findings against `powerbi-governance`'s configured naming convention (see its `settings.md`), if that skill is available, instead of [naming-conventions.md](./references/naming-conventions.md)'s generic measure-naming guidance.
 4. **Present findings** grouped by severity (critical, recommended, optional). For each item state the rule violated and the proposed fix. Wait for user approval.
 5. **Apply approved fixes** via [Modify an Existing Model](#workflow-modify-an-existing-model).
 6. **Save & validate** - per [Saving Changes to a Semantic Model](#saving-changes-to-a-semantic-model) and [Validation Checklist](#validation-checklist).

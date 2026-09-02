@@ -41,6 +41,7 @@ Each owns a single concern; route work to the right one.
 | `powerbi-report-authoring` | Report content (PBIR JSON authoring) | Pages, visuals, filters, formatting, themes, expressions, `definition.pbir`, `version.json`, `report.json` |
 | `powerbi-report-management` (this skill) | Report transport to/from Fabric | List, create, get, update, delete report items; download/upload PBIR definitions |
 | Semantic-model authoring skill | Semantic model authoring + deployment | Create/edit measures/tables/relationships, TMDL, deploy semantic models to Fabric |
+| `powerbi-governance` | Change-control (CR reference, ledger) | Confirm a CR exists before publishing; log the publish once it lands |
 
 **When publishing a local `.pbip` to Fabric**, this skill is the entry
 point. If the user wants to publish the local semantic model alongside
@@ -377,6 +378,8 @@ For Fabric API, use `byConnection` (not `byPath`):
 - **Clean up temporary files** — delete any local temp directories and files (decoded definitions, JSON payloads) created during the workflow once the operation completes. These can be large and accumulate on the user's machine.
 - **Verify semantic-model bindings after the target model is resolved** — once the report's target semantic model is known (whether by a fresh deploy through an available semantic-model authoring skill or by selecting an existing workspace model), download its TMDL and compare all PBIR bindings (`Entity`, `queryRef`, `nativeQueryRef`, filter `Source`/`Entity` references) against the model's table/column/measure names. This applies to **both** branches: even a hand-off deploy may rename or transform the model during publish, so the diff is not optional. If names differ but models are structurally equivalent (same columns/measures), remap all table-qualified bindings via `powerbi-report-authoring`. If the models are not structurally equivalent, prompt the user before attempting to re-author — explain which tables/columns/measures don't match and ask whether to proceed.
 - **Local edits stay local by default** — when a user requests changes to a local `.pbip` report, apply the changes to the local files only. Do not publish to Fabric unless the user explicitly asks to publish, upload, or push the report. Even if the report was previously published to Fabric, treat subsequent edits as local-only until told otherwise. **When the user does request publishing a local `.pbip`**, follow the [Publishing a local .pbip](#publishing-a-local-pbip) workflow: (a) confirm the target workspace once up front, (b) prompt publish-the-local-model vs. connect-to-an-existing-workspace-model, (c) on the publish-model branch, check whether a semantic-model authoring skill is available in the current session and degrade gracefully if not, (d) confirm create-new vs. update-existing for the report itself.
+- **Confirm change-control before publishing** — invoke `powerbi-governance` to confirm a CR reference exists for the change being published, and invoke it again once the LRO reaches a terminal state so it can record the publish in the ledger.
+- **Fail closed when governance cannot run** — if `powerbi-governance` is unavailable, inaccessible, or errors before CR resolution or post-publish ledger logging, stop the publish flow and ask the user to enable/fix governance; do not silently continue.
 
 ### PREFER
 
@@ -498,6 +501,14 @@ capture `x-ms-operation-id` (with `--verbose` written to a file), poll
 the LRO to terminal success.
 
 **10. Clean up** any temporary files created during the flow.
+
+**11. Log the change.** Invoke `powerbi-governance` to append/update the
+ledger entry — mark `Status: Applied`, list the published item(s) with
+their new Fabric item ids, and note the workspace. If governance logging
+cannot be completed, treat the workflow as blocked and ask the user how to
+proceed. (Threading the CR id into
+`deployment-pipelines-authoring-cli`'s deploy `note` field is a possible
+future extension, not built here.)
 
 > **Note on report-side verification**: after publish, verify the report
 > renders correctly rather than only confirming the LRO reached terminal
