@@ -53,6 +53,23 @@ file should not need literal-value changes. See
 [references/contract.md](references/contract.md) for exactly which
 consuming skill relies on which `settings.md` section.
 
+## Invocation Contract (Mandatory)
+
+Under msg governance scope, callers must treat this skill as a hard gate for
+governed changes:
+
+1. **Pre-change invocation (required)** — before making report or semantic
+   model changes, callers must invoke `powerbi-governance` to read prior
+   history and resolve a CR reference.
+2. **Post-outcome invocation (required)** — after the change reaches an
+   outcome (`Applied`, `Blocked`, `Rejected`, or `Reverted`), callers must
+   invoke `powerbi-governance` again so the ledger is updated.
+3. **Fail closed on missing governance** — if a caller cannot invoke this
+   skill for either step, it must mark the workflow blocked and ask the user
+   to enable/fix governance before proceeding.
+4. **Completion gate** — a governed task is not complete until the ledger
+   entry is written.
+
 ## Must/Prefer/Avoid
 
 ### MUST
