@@ -75,7 +75,13 @@ For brownfield mode, also walk
       typography change reads as accidental.
 - [ ] **Tone propagated to color** — the `dataColors` palette
       reflects the tone-catalog row's accent guidance, not the base
-      Okabe-Ito as-is.
+      Okabe-Ito as-is. **Exception:** if `assets/base.json` has already
+      been customized away from the shipped Okabe-Ito default (its
+      `dataColors`/`good`/`neutral`/`bad`/fonts differ from
+      `palettes.json`'s `"microsoft"` entry), that is a locked brand
+      identity, not the generic default this checklist item targets —
+      reuse its colors and fonts verbatim and propagate tone through
+      typography, density, gridlines, borders, and signature instead.
 - [ ] **Measure color map complete** — every measure used in a color-bearing
       card/chart/map/table has a `color_map` entry or a documented reason to use
       category/semantic colors instead.
