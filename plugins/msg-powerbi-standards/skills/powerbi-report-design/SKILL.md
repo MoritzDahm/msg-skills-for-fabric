@@ -33,6 +33,7 @@ This skill provides design guidance for Power BI reports. It commits a design id
 - Inspect the semantic model or available fields before making design decisions.
 - Check `assets/base.json` against `assets/palettes.json`'s `"microsoft"` entry before Step 1. If its `dataColors`/`good`/`neutral`/`bad`/fonts have been customized away from that shipped default, treat it as the org's locked brand identity: reuse those colors and fonts verbatim in every report and choose a tone/signature that fits them. Do not let tone-catalog "palette move" guidance invent a competing palette — only the user, not the tone catalog, can override a locked brand.
 - Produce concrete design choices: tone, signature, page archetype, chart rationale, layout direction, color, typography, and accessibility considerations.
+- Run Step 2's archetype/layout-variant routing and Step 4's grid/space-audit composition for every page even when a supplied requirements file already lists which visuals go on each page. A prescriptive brief specifies content, not layout — it shortcuts asking the user *what* goes on a page, not this skill's own routing/composition decisions about *how*.
 - If this design change is part of a governed change (an existing CR, or a revision to an already-approved design), invoke `powerbi-governance` to confirm/resolve the CR reference so the eventual ledger entry captures it — this skill still owns all theme/color/layout decisions itself.
 - Hand off file mechanics to `powerbi-report-authoring`; this skill does not edit PBIR.
 
@@ -86,6 +87,8 @@ Before routing archetypes or picking charts, commit to a **tone** and **signatur
 ### Step 2 — Archetype Router
 
 Route **per page**, not per report. Even a single broad request ("a report covering everything about our business") usually decomposes into pages with different audiences, purposes, and cadences — and therefore different archetypes. Treat each page as an independent routing decision.
+
+**A detailed requirements file does not replace this step.** A brief that already lists which visuals belong on each page (a multi-page `requirements.md` naming charts per page, for example) is specifying *content*, not *layout*. Still walk the routing table, pick a layout variant deliberately per page (below), and run `references/layout.md`'s grid/region/space-audit process in Step 4 — do not transcribe the listed visuals onto a page in prompt order as a substitute for routing and composition.
 
 | Signal | Archetype | Reference |
 |--------|-----------|-----------|
@@ -217,6 +220,8 @@ Non-obvious issues that cause reports to look broken or indistinct. Check each o
 **Tone declared but never propagated** — A brief that says `tone: editorial newsroom` but ships the same typography, palette, and gridline/border treatment as every other report. The tone has to *show up* in concrete visual choices. Walk the tone-catalog row's downstream-choices column.
 
 **Locked brand overwritten by tone-catalog color guidance** — The opposite failure: `assets/base.json` already carries a customized brand palette (its `dataColors`/fonts differ from `palettes.json`'s `"microsoft"` default), but the report ships with a different, tone-catalog-driven palette instead — reported as "looks like the default Microsoft theme" even though the org's brand was configured. The pre-flight checklist's "tone propagated to color" item is written against the *shipped generic* default; it does not license overriding an already-customized `base.json`. Check `base.json` against the shipped default before Step 1 and reuse its colors/fonts verbatim whenever it's been customized.
+
+**Detailed requirements file mistaken for a finished layout** — A long, page-by-page `requirements.md` that names specific visuals per page (common for multi-page executive reports) gets transcribed onto pages in prompt order instead of being routed through Step 2's archetype/variant selection and Step 4's grid/space-audit composition — producing cramped, poorly balanced pages even though every listed visual is present. The more detailed the brief, the stronger the pull to skip routing/composition as "already decided." A requirements file specifies *what* content each page needs; it never specifies *how* to lay it out — that decision is always this skill's to make, deliberately, per page.
 
 **Page background** — Use an intentional page surface on every page; avoid white canvas + white visual containers, which creates flat, borderless visuals that bleed into the background. Authoring owns the exact `page.json` mechanics.
 
