@@ -36,8 +36,9 @@ the report spec **and** continues into implementation after the user approves.
 - Use this skill for broad report creation workflows that need requirements, dependency checks, approval, and build sequencing.
 - Ask focused clarification questions one at a time and stop after the required decision is clear.
 - Lock `_brief/report-spec.md` and get approval before implementation.
-- Route design decisions through `powerbi-report-design` and file mechanics through `powerbi-report-authoring`.
 - Invoke `powerbi-governance` at Round 0 to read prior change history for the target workspace/model and resolve a CR reference for this session's work.
+- A complete requirements/brief file supplied up front only shortcuts the clarification *questions* (Rounds 1-4) — it does not skip Round 0's governance invocation, the locked `_brief/report-spec.md`, or the approval gate. Run those regardless of how complete the input is.
+- Route design decisions through `powerbi-report-design` and file mechanics through `powerbi-report-authoring`.
 
 ### PREFER
 
@@ -49,6 +50,7 @@ the report spec **and** continues into implementation after the user approves.
 
 - Do not use this skill for small, surgical edits to existing PBIR files.
 - Do not build before the user approves the locked report spec.
+- Do not treat a fully-specified `requirements.md`/brief as license to skip straight to building. It removes the need to ask clarification questions — it does not remove Round 0's `powerbi-governance` invocation, the locked `_brief/report-spec.md`, or the approval gate.
 - Do not duplicate detailed visual-design or PBIR-authoring guidance that belongs to companion skills.
 
 ## Examples of When to Use
@@ -84,12 +86,16 @@ Rounds 3–4 — it does not replace it.
 4. **Check dependencies explicitly.** Do not assume Desktop, MCP, authoring, or
    Fabric publishing are available.
 5. **Produce one locked `_brief/report-spec.md` before building.**
-6. **Ask for approval before implementation.** Do not build until the user
+6. **Always invoke `powerbi-governance` at Round 0**, before any planning
+   questions — even when the request already supplies a complete brief or
+   `requirements.md`. A fully-specified input shortcuts *which questions you
+   ask*, not whether Round 0, the locked spec, or the approval gate run.
+7. **Ask for approval before implementation.** Do not build until the user
    explicitly approves.
-7. **When approved, build end-to-end.** Model changes, PBIR generation,
+8. **When approved, build end-to-end.** Model changes, PBIR generation,
    validation, Desktop preview, screenshot loop, and optional Fabric publish.
-8. **Local edits stay local unless publishing is approved.**
-9. **Do not re-ask known answers.** If the original prompt, inspected files, or
+9. **Local edits stay local unless publishing is approved.**
+10. **Do not re-ask known answers.** If the original prompt, inspected files, or
    a prior round already provides audience, page count, delivery target, scope,
    or design direction, capture it in working notes and move on. Ask only for
    genuine ambiguity or risky tradeoffs.
@@ -121,7 +127,10 @@ Goal: identify the semantic model, report target, and available tooling.
 Invoke `powerbi-governance` first — it reads `./_governance/change-log.md`
 for this workspace/model, surfaces any relevant prior history (especially
 reverted or blocked items), and resolves this session's CR reference before
-any planning questions are asked.
+any planning questions are asked. Run this step even when the user already
+supplied a complete `requirements.md`/brief — a fully-specified request
+means fewer questions in Rounds 1-4 below, not skipping Round 0, the locked
+spec, or the approval gate.
 
 Ask only what cannot be inspected automatically:
 

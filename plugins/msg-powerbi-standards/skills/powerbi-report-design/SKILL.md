@@ -31,6 +31,7 @@ This skill provides design guidance for Power BI reports. It commits a design id
 ### MUST
 
 - Inspect the semantic model or available fields before making design decisions.
+- Check `assets/base.json` against `assets/palettes.json`'s `"microsoft"` entry before Step 1. If its `dataColors`/`good`/`neutral`/`bad`/fonts have been customized away from that shipped default, treat it as the org's locked brand identity: reuse those colors and fonts verbatim in every report and choose a tone/signature that fits them. Do not let tone-catalog "palette move" guidance invent a competing palette — only the user, not the tone catalog, can override a locked brand.
 - Produce concrete design choices: tone, signature, page archetype, chart rationale, layout direction, color, typography, and accessibility considerations.
 - If this design change is part of a governed change (an existing CR, or a revision to an already-approved design), invoke `powerbi-governance` to confirm/resolve the CR reference so the eventual ledger entry captures it — this skill still owns all theme/color/layout decisions itself.
 - Hand off file mechanics to `powerbi-report-authoring`; this skill does not edit PBIR.
@@ -78,7 +79,9 @@ Inspect the semantic model before making any design decision. Use the Semantic M
 
 ### Step 1 — Design Identity
 
-Before routing archetypes or picking charts, commit to a **tone** and **signature**. The tone captures the report's feel; the signature is the one defining visual move that recurs across pages. If the prompt lacks a specific identity, use `references/tone-catalog.md` and `references/signatures.md` to choose, remix, or author a tone/signature. Do not force-fit catalog entries; the requirement is a concrete identity that drives palette, typography, layout, and recurring visual treatment. For brownfield redesigns, read `references/brownfield.md` and capture both current and target tone/signature.
+Before routing archetypes or picking charts, commit to a **tone** and **signature**. The tone captures the report's feel; the signature is the one defining visual move that recurs across pages. If the prompt lacks a specific identity, use `references/tone-catalog.md` and `references/signatures.md` to choose, remix, or author a tone/signature. Do not force-fit catalog entries; the requirement is a concrete identity that drives typography, layout, and recurring visual treatment. For brownfield redesigns, read `references/brownfield.md` and capture both current and target tone/signature.
+
+**Locked-brand exception:** if `assets/base.json` already carries a customized palette (see the MUST list above), the tone-catalog row's "palette move" guidance does not apply — colors and fonts come from `assets/base.json` as-is, not from the catalog entry. Pick the tone/signature for its typography, density, gridline, and layout implications only.
 
 ### Step 2 — Archetype Router
 
@@ -119,16 +122,20 @@ Read `references/visual-cookbook.md` for per-visual-type rules: sort order, colo
 ### Step 5 — Theme
 
 Adapt the report theme to the design identity from Step 1. For generated reports,
-start from `assets/base.json` or preserve its critical per-type safeguards when
-creating an adapted custom theme: `textbox` padding/background/border overrides,
-`cardVisual` zero padding/card spacing, table grow-to-fit styling, hidden visual
-headers, and type-specific chart defaults. Do not replace these with a blunt
-wildcard `visualStyles["*"]["*"].padding` / background unless every affected
-visual type is checked and overridden. If the report already has a theme,
-preserve it unless the user asked for a theme swap or brand refresh. For full
-mechanics of theme registration — including how to choose the `$schema`
-version when adapting `assets/base.json` — use the `powerbi-report-authoring`
-skill.
+start from `assets/base.json` as the theme base. If its `dataColors`/fonts are a
+customized (locked) brand per the Step 1 check, use them **verbatim** —
+`dataColors`, `good`/`neutral`/`bad`, and font families are not Step 5's to
+reinvent. Only build a genuinely custom palette when `base.json` is still the
+shipped default and neither the user nor Step 1 has fixed a brand. Regardless of
+palette source, preserve `assets/base.json`'s critical per-type safeguards:
+`textbox` padding/background/border overrides, `cardVisual` zero padding/card
+spacing, table grow-to-fit styling, hidden visual headers, and type-specific
+chart defaults. Do not replace these with a blunt wildcard
+`visualStyles["*"]["*"].padding` / background unless every affected visual type
+is checked and overridden. If the report already has a theme, preserve it
+unless the user asked for a theme swap or brand refresh. For full mechanics of
+theme registration — including how to choose the `$schema` version when
+adapting `assets/base.json` — use the `powerbi-report-authoring` skill.
 
 ### Step 6 — Canonical Design Contract
 
@@ -208,6 +215,8 @@ Once the contract passes the checklist, hand off to `powerbi-report-authoring` f
 Non-obvious issues that cause reports to look broken or indistinct. Check each one.
 
 **Tone declared but never propagated** — A brief that says `tone: editorial newsroom` but ships the same typography, palette, and gridline/border treatment as every other report. The tone has to *show up* in concrete visual choices. Walk the tone-catalog row's downstream-choices column.
+
+**Locked brand overwritten by tone-catalog color guidance** — The opposite failure: `assets/base.json` already carries a customized brand palette (its `dataColors`/fonts differ from `palettes.json`'s `"microsoft"` default), but the report ships with a different, tone-catalog-driven palette instead — reported as "looks like the default Microsoft theme" even though the org's brand was configured. The pre-flight checklist's "tone propagated to color" item is written against the *shipped generic* default; it does not license overriding an already-customized `base.json`. Check `base.json` against the shipped default before Step 1 and reuse its colors/fonts verbatim whenever it's been customized.
 
 **Page background** — Use an intentional page surface on every page; avoid white canvas + white visual containers, which creates flat, borderless visuals that bleed into the background. Authoring owns the exact `page.json` mechanics.
 
