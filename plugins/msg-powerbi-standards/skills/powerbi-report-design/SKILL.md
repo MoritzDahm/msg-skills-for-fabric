@@ -11,7 +11,7 @@ description: >-
   "make dashboard look professional", "choose chart type", "apply brand to
   report", "redesign report", "create design brief", "Power BI report design archetype".
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 > **Update Check — ONCE PER SESSION (mandatory)**

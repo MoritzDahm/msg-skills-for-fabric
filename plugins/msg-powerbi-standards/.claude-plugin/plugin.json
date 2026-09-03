@@ -2,9 +2,9 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "msg-powerbi-standards",
   "description": "Developed by msg: Adding powerbi knowledge to your AI agent",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
-  "repository": "ADD-REPOSITORY",
+  "repository": "https://github.com/MoritzDahm/msg-skills-for-fabric",
   "keywords": [
     "fabric",
     "microsoft-fabric",

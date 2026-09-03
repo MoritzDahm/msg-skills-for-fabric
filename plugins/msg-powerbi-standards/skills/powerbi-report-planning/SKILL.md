@@ -11,7 +11,7 @@ description: >-
   dashboard", "create a new report", "plan then implement", "define and build
   Power BI report", "walk me through creating a report".
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 > **Update Check — ONCE PER SESSION (mandatory)**
